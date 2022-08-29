@@ -34,7 +34,7 @@ const ElementThemeProvider = ({ children }: Props) => {
         setPrimary,
       }}
     >
-      <Box bg={colors[primary][700]} textColor='white.500'>{children}</Box>
+      <Box bg={colors[primary][700]}>{children}</Box>
     </ElementTheme.Provider >
   );
 };

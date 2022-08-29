@@ -2,6 +2,7 @@ import * as React from 'react';
 import type { AppProps } from 'next/app';
 import NextHead from 'next/head';
 import '../styles/globals.css';
+import { theme } from '../utils/theme';
 
 import { ChakraProvider } from '@chakra-ui/react';
 
@@ -18,6 +19,10 @@ import {
 } from '@rainbow-me/rainbowkit';
 
 import { useIsMounted } from '../hooks';
+import ElementThemeProvider from '@/contexts/ElementTheme';
+import { PhoneWrap } from '@/components/PhoneWrap';
+import { Header } from '@/components/Header';
+import { Switcher } from '@/components/Switcher';
 
 // Get environment variables
 const alchemyId = process.env.NEXT_PUBLIC_ALCHEMY_ID as string;
@@ -64,8 +69,14 @@ const App = ({ Component, pageProps }: AppProps) => {
         <NextHead>
           <title>create-web3</title>
         </NextHead>
-        <ChakraProvider>
-          <Component {...pageProps} />
+        <ChakraProvider theme={theme}>
+          <ElementThemeProvider>
+            <PhoneWrap>
+              <Header />
+              <Component {...pageProps} />
+            </PhoneWrap>
+            <Switcher />
+          </ElementThemeProvider>
         </ChakraProvider>
       </RainbowKitProvider>
     </WagmiConfig>

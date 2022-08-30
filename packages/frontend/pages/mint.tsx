@@ -94,13 +94,6 @@ export default function Mint() {
     setStep(3)
   }
 
-  const handleButton = () => {
-    if (steps[step].buttonFn) {
-      fnMap[steps[step].buttonFn as FnMapKeys]
-    }
-
-  }
-
   if (!address) {
     router.push('/')
     return false;
@@ -129,7 +122,7 @@ export default function Mint() {
       </Main>
       <Footer>
         {steps[step].button && (
-          <Button disabled={steps[step].buttonDisabled} onClick={handleButton}>{steps[step].button}</Button>
+          <Button disabled={steps[step].buttonDisabled} onClick={fnMap[steps[step].buttonFn as FnMapKeys]}>{steps[step].button}</Button>
         )}
       </Footer>
     </>

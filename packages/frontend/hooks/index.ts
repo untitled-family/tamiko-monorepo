@@ -1,2 +1,2 @@
 export { useIsMounted } from './useIsMounted';
-export { useElementTheme } from './useElementTheme';
+export { useElementTheme, useElement } from './useElementTheme';

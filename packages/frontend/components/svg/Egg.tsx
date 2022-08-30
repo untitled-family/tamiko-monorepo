@@ -258,15 +258,15 @@ export default function Egg({ isActive }: Props) {
         <rect x="18" y="8" width="2" height="2" fill="#0B001A" />
         <rect x="20" y="10" width="2" height="2" fill="#0B001A" />
         <rect y="10" width="2" height="2" fill="#0B001A" />
-        <rect x="8" y="6" width="2" height="2" fill="#FECCFF" />
-        <rect x="10" y="6" width="2" height="2" fill="#FECCFF" />
-        <rect x="10" y="4" width="2" height="2" fill="#FECCFF" />
-        <rect x="12" y="6" width="2" height="2" fill="#FECCFF" />
-        <rect x="14" y="8" width="2" height="2" fill="#FECCFF" />
-        <rect x="12" y="8" width="2" height="2" fill="#FECCFF" />
-        <rect x="10" y="8" width="2" height="2" fill="#FECCFF" />
-        <rect x="8" y="8" width="2" height="2" fill="#FECCFF" />
-        <rect x="6" y="8" width="2" height="2" fill="#FECCFF" />
+        <rect x="8" y="6" width="2" height="2" fill={light} />
+        <rect x="10" y="6" width="2" height="2" fill={light} />
+        <rect x="10" y="4" width="2" height="2" fill={light} />
+        <rect x="12" y="6" width="2" height="2" fill={light} />
+        <rect x="14" y="8" width="2" height="2" fill={light} />
+        <rect x="12" y="8" width="2" height="2" fill={light} />
+        <rect x="10" y="8" width="2" height="2" fill={light} />
+        <rect x="8" y="8" width="2" height="2" fill={light} />
+        <rect x="6" y="8" width="2" height="2" fill={light} />
         <rect x="8" y="4" width="2" height="2" fill="#0B001A" />
         <rect x="6" y="6" width="2" height="2" fill="#0B001A" />
         <rect x="4" y="8" width="2" height="2" fill="#0B001A" />

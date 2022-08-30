@@ -96,6 +96,8 @@ contract Tamiko is ERC721A, Ownable {
         itemContracts.push(ITamikoItem(_reviveAddress));
     }
 
+    event Mint(uint256 indexed _tokenId);
+
     error NonExistentTamiko();
     error NotFromTamikoStoreContract();
     error NotFromTamikoLinkContract();
@@ -257,7 +259,7 @@ contract Tamiko is ERC721A, Ownable {
     /**
      * @dev Mints a Tamiko: It stores a seed and the breeder as well as airdrops 10 Food item to the sender
      */
-    function mint() external payable hasNeverMinted isUnderMaxSupply {
+    function mint() external payable isUnderMaxSupply {
         uint256 _currentTokenId = _nextTokenId();
 
         _mint(msg.sender, 1);
@@ -270,6 +272,8 @@ contract Tamiko is ERC721A, Ownable {
             )
         );
         tamikos[_currentTokenId].breeder = msg.sender;
+
+        emit Mint(_currentTokenId);
     }
 
     /**

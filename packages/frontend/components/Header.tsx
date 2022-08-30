@@ -3,6 +3,7 @@ import {
   useConnectModal,
   useAccountModal,
 } from '@rainbow-me/rainbowkit';
+import Link from "next/link";
 import { useAccount, useEnsName } from "wagmi";
 import { trimAddress } from '../utils/address'
 
@@ -16,7 +17,7 @@ export const Header = () => {
 
   return (
     <Flex as='header' alignItems='center' justifyContent='space-between'>
-      <h1>Tamiko</h1>
+      <h1><Link href='/'>Tamiko</Link></h1>
       {openAccountModal ? (
         <Box as='button' textTransform='uppercase' onClick={openAccountModal}>{ensName || trimAddress(address || '0x0000000')}</Box>
       ) : (

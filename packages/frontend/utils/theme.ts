@@ -14,10 +14,7 @@ export const theme = extendTheme({
         // color: 'whiteAlpha.700',
         // bg: 'black.500',
         fontSize: 'md',
-      },
-      a: {
-        color: 'whiteAlpha.500',
-      },
+      }
     },
   }
 });

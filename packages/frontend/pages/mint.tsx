@@ -1,14 +1,15 @@
 import Head from 'next/head';
 import { Main } from '@/components/Main';
 import { Box, Text } from '@chakra-ui/react';
-import { useAccount, useEnsName } from "wagmi";
-import { useState } from 'react';
+import { useAccount, useEnsName, useSigner } from "wagmi";
+import { useCallback, useState } from 'react';
 import { trimAddress } from '@/utils/address';
 import Connected from '@/components/svg/Connected';
 import { Footer } from '@/components/Footer';
 import { Button } from '@/components/Button';
 import EggPicker from '@/components/EggPicker';
 import { useRouter } from 'next/router'
+import { useContract } from '@/hooks/useContract';
 
 interface Step {
   copy: Array<string>,
@@ -60,7 +61,7 @@ const steps: Step[] = [
     buttonFn: 'null'
   },
   {
-    copy: ['Congratulations!', 'You’re now the proud parent of tamiko 009.'],
+    copy: ['Congratulations!'],
     button: 'Hatch your Tamiko',
     buttonFn: 'null'
   }
@@ -68,21 +69,42 @@ const steps: Step[] = [
 
 export default function Mint() {
   const router = useRouter()
-  const [step, setStep] = useState(0)
+  const [step, setStep] = useState<number>(0)
+  const [mintedId, setMintedId] = useState<number>(0)
   const { address } = useAccount()
   const trimedAddress = address ? trimAddress(address) : ''
   const { data: ensName } = useEnsName({
     address,
   })
+  const { data: signer } = useSigner()
+  const tamikoContract = useContract('Tamiko', signer)
+
   const introP = `Hey ${ensName || trimedAddress}`
+  const successP = `You’re now the proud parent of tamiko ${mintedId}.`
 
   const increment = () => {
     setStep(step + 1)
   }
 
-  const mint = () => {
-    console.log('mint')
-    setStep(step + 1)
+  const mint = async () => {
+    setStep(4)
+
+    try {
+      const tx = await tamikoContract.mint()
+      setStep(5)
+      const receipt = await tx.wait()
+      const event = receipt.events.find((e: { event: string }) => e.event === 'Mint')
+      const tokenId = event.args._tokenId.toNumber()
+
+      setStep(6)
+      setMintedId(tokenId)
+
+      const token = await tamikoContract.tokenURI(tokenId)
+      console.log('token', token)
+    } catch (e) {
+      setStep(3)
+      console.dir(e)
+    }
   }
 
   const fnMap: FnMap = {
@@ -119,6 +141,9 @@ export default function Mint() {
             <Text mb={2} key={p}>{p}</Text>
           )
         })}
+        {step === 6 && (
+          <Text>{successP}</Text>
+        )}
       </Main>
       <Footer>
         {steps[step].button && (

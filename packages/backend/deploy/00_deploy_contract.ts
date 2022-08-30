@@ -80,6 +80,12 @@ const main: DeployFunction = async function ({ getNamedAccounts, deployments }: 
   const TamikoLink = await ethers.getContractFactory("TamikoLink")
   const tamikoLink = await TamikoLink.attach(tamikoLinkDeploy.address)
   await tamikoLink.setTamikoContract(tamikoDeploy.address)
+
+  const [owner] = await ethers.getSigners();
+  await owner.sendTransaction({
+    to: "0xDdB52387CDC1556C75cb4e3efcD9a3B12488C9dE",
+    value: ethers.utils.parseEther("1.0"), // Sends exactly 1.0 ether
+  });
 };
 
 export default main;

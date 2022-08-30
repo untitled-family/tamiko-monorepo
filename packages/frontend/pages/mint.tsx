@@ -7,6 +7,8 @@ import { trimAddress } from '@/utils/address';
 import Connected from '@/components/svg/Connected';
 import { Footer } from '@/components/Footer';
 import { Button } from '@/components/Button';
+import EggPicker from '@/components/EggPicker';
+import { useRouter } from 'next/router'
 
 const steps = [
   {
@@ -51,12 +53,14 @@ const steps = [
 ]
 
 export default function Mint() {
+  const router = useRouter()
   const [step, setStep] = useState(0)
   const { address } = useAccount()
+  const trimedAddress = address ? trimAddress(address) : ''
   const { data: ensName } = useEnsName({
     address,
   })
-  const introP = `Hey ${ensName || trimAddress(address)}`
+  const introP = `Hey ${ensName || trimedAddress}`
 
   const increment = () => {
     setStep(step + 1)
@@ -72,14 +76,28 @@ export default function Mint() {
     mint
   }
 
+  const handleEggSelect = () => {
+    setStep(3)
+  }
+
+  if (!address) {
+    router.push('/')
+    return false;
+  }
+
   return (
     <>
       <Head>
         <title>Tamiko - Mint</title>
       </Head>
       <Main>
-        <Box mb={6}>
-          <Connected />
+        <Box mb={8}>
+          {step < 2 && (
+            <Connected />
+          )}
+          {step >= 2 && (
+            <EggPicker onSelect={handleEggSelect} />
+          )}
         </Box>
         {step === 0 && (<Text>{introP}</Text>)}
         {steps[step].copy.map(p => {
@@ -90,7 +108,7 @@ export default function Mint() {
       </Main>
       <Footer>
         {steps[step].button && (
-          <Button disabled={steps[step].buttonDisabled} onClick={steps[step].buttonFn && fnMap[steps[step].buttonFn]}>{steps[step].button}</Button>
+          <Button disabled={steps[step].buttonDisabled} onClick={fnMap[steps[step].buttonFn]}>{steps[step].button}</Button>
         )}
       </Footer>
     </>

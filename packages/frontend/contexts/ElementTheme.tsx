@@ -7,6 +7,7 @@ import {
   SetStateAction,
   useState,
 } from "react";
+import { omit } from "lodash";
 
 type Props = {
   children: ReactNode;
@@ -23,6 +24,8 @@ const initialValue: IState = {
 };
 
 export const ElementTheme = createContext(initialValue);
+
+export const elements = omit(colors, ['white', 'black'])
 
 const ElementThemeProvider = ({ children }: Props) => {
   const [primary, setPrimary] = useState("neutral");

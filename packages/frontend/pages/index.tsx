@@ -12,10 +12,24 @@ import Link from 'next/link';
 import Idle from '@/components/svg/Idle';
 import { Text } from '@chakra-ui/react';
 import Connected from '@/components/svg/Connected';
+import { useEffect } from 'react';
+import { useElementTheme } from '@/hooks';
+import { elements } from '@/contexts/ElementTheme';
 
 export default function Home() {
   const { openConnectModal } = useConnectModal();
   const { address } = useAccount()
+  const [primary, setPrimary] = useElementTheme()
+
+  console.log('primary', primary)
+
+  useEffect(() => {
+    if (address) {
+      const keys = Object.keys(elements)
+      const random = keys[Math.floor(Math.random() * keys.length)]
+      setPrimary(random)
+    }
+  }, [address])
 
   return (
     <>
@@ -42,14 +56,18 @@ export default function Home() {
             <Link href='/mint'>
               <Button>Mint</Button></Link>
             <Link href='/app'>
-              <Button>App</Button>
+              <Button isGhost>App</Button>
             </Link>
           </>
         )}
         {openConnectModal && (
-          <Button onClick={openConnectModal}>connect wallet</Button>
+          <>
+            <Button onClick={openConnectModal}>connect wallet</Button>
+            <Button isGhost>wtf is tamiko?</Button>
+          </>
+
         )}
-        <Button isGhost>wtf is tamiko?</Button>
+
       </Footer>
     </>
   );

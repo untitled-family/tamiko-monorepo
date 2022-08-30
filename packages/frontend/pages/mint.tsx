@@ -17,6 +17,13 @@ interface Step {
   buttonDisabled?: boolean
 }
 
+interface FnMap {
+  mint: () => void,
+  increment: () => void
+}
+
+type FnMapKeys = keyof FnMap;
+
 const steps: Step[] = [
   {
     copy: [
@@ -78,13 +85,20 @@ export default function Mint() {
     setStep(step + 1)
   }
 
-  const fnMap = {
+  const fnMap: FnMap = {
     increment,
     mint
   }
 
   const handleEggSelect = () => {
     setStep(3)
+  }
+
+  const handleButton = () => {
+    if (steps[step].buttonFn) {
+      fnMap[steps[step].buttonFn as FnMapKeys]
+    }
+
   }
 
   if (!address) {
@@ -115,7 +129,7 @@ export default function Mint() {
       </Main>
       <Footer>
         {steps[step].button && (
-          <Button disabled={steps[step].buttonDisabled} onClick={fnMap[steps[step].buttonFn]}>{steps[step].button}</Button>
+          <Button disabled={steps[step].buttonDisabled} onClick={handleButton}>{steps[step].button}</Button>
         )}
       </Footer>
     </>

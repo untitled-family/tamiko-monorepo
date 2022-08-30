@@ -1,12 +1,14 @@
 import { Box } from "@chakra-ui/react";
 import { ReactNode } from "react";
 import { omit } from 'lodash'
+import { transparentize } from "polished";
 
 import { useElement } from "../hooks/useElementTheme";
 
 type Props = {
   children: ReactNode;
   isGhost?: boolean;
+  disabled?: boolean;
   onClick?: () => void;
 };
 
@@ -20,23 +22,29 @@ const corners = [
 export const Button = ({
   children,
   isGhost = false,
+  disabled,
   onClick,
   ...rest
 }: Props) => {
-  const bgColor = useElement(700);
+  const disabledBg = isGhost ? 'transparent' : transparentize(0.8, useElement(700));
+  const disabledTextColor = transparentize(0.2, useElement(400))
+  const bgColor = isGhost ? 'transparent' : useElement(700);
+  const textColor = isGhost ? 'black.500' : 'white.500'
   const cornerColor = useElement();
 
   return (
     <Box
+      disabled={disabled}
       as='button'
-      bg={isGhost ? 'transparent' : bgColor}
-      textColor={isGhost ? 'black.500' : 'white.500'}
+      bg={disabled ? disabledBg : bgColor}
+      textColor={disabled ? disabledTextColor : textColor}
       position='relative'
       p={4}
       fontSize='lg'
       textTransform='uppercase'
       w='full'
       onClick={onClick}
+      cursor={disabled ? 'not-allowed' : 'pointer'}
       {...rest}
     >
       {!isGhost &&

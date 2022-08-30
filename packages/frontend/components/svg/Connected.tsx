@@ -1,8 +1,6 @@
 import { useElement } from "@/hooks"
 import { Box } from "@chakra-ui/react"
 
-
-
 export default function Connected() {
   const light = useElement(400)
   const normal = useElement()

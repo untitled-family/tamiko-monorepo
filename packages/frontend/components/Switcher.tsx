@@ -5,11 +5,16 @@ import { useElementTheme } from "../hooks/useElementTheme";
 export const Switcher = () => {
   const [, setColor] = useElementTheme();
 
+  const switchColor = (color: string) => {
+    // @ts-ignore
+    setColor(color)
+  }
+
   return (
-    <Box left={2} top={2} position='absolute' textColor='white.500'>
+    <Box left={2} top={2} position='absolute' textColor='white'>
       {Object.keys(colors).map((element) => (
         <div key={element}>
-          <button onClick={() => setColor(element)}>{element}</button>
+          <button onClick={() => switchColor(element)}>{element}</button>
         </div>
       ))}
     </Box>

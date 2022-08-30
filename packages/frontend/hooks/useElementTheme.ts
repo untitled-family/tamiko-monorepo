@@ -12,13 +12,14 @@ export const useElementTheme = () => {
     );
   }
 
-  return [elementThemeContext.primary, elementThemeContext.setPrimary];
+  return [elementThemeContext.color, elementThemeContext.setColor];
 };
 
 export const useElement = (
   shade: 400 | 500 | 600 | 700 = 500
 ) => {
-  const [primary] = useElementTheme();
+  const [color] = useElementTheme();
 
-  return colors[primary][shade];
+  // @ts-ignore
+  return colors[color][shade];
 };

@@ -19,15 +19,16 @@ import { elements } from '@/contexts/ElementTheme';
 export default function Home() {
   const { openConnectModal } = useConnectModal();
   const { address } = useAccount()
-  const [primary, setPrimary] = useElementTheme()
 
-  console.log('primary', primary)
+  const [, setColor] = useElementTheme()
+
 
   useEffect(() => {
     if (address) {
       const keys = Object.keys(elements)
       const random = keys[Math.floor(Math.random() * keys.length)]
-      setPrimary(random)
+      // @ts-ignore
+      setColor(random)
     }
   }, [address])
 

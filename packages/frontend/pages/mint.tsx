@@ -10,7 +10,14 @@ import { Button } from '@/components/Button';
 import EggPicker from '@/components/EggPicker';
 import { useRouter } from 'next/router'
 
-const steps = [
+interface Step {
+  copy: Array<string>,
+  button: string | null,
+  buttonFn: string,
+  buttonDisabled?: boolean
+}
+
+const steps: Step[] = [
   {
     copy: [
       'Say hello to Tamiko!',
@@ -38,17 +45,17 @@ const steps = [
   {
     copy: ['Confirm in your wallet'],
     button: null,
-    buttonFn: null,
+    buttonFn: 'null',
   },
   {
     copy: ['Minting your tamkio egg. This can take a couple of minutes...'],
     button: null,
-    buttonFn: null
+    buttonFn: 'null'
   },
   {
     copy: ['Congratulations!', 'You’re now the proud parent of tamiko 009.'],
     button: 'Hatch your Tamiko',
-    buttonFn: null
+    buttonFn: 'null'
   }
 ]
 

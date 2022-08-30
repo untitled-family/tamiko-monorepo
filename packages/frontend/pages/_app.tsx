@@ -45,6 +45,7 @@ const hardhatChain: Chain = {
 
 const { chains, provider } = configureChains(
   [chain.mainnet, chain.goerli, hardhatChain],
+  // @ts-ignore
   [alchemyProvider({ alchemyId }), publicProvider()]
 );
 

@@ -29,7 +29,7 @@ export const Button = ({
   const disabledBg = isGhost ? 'transparent' : transparentize(0.8, useElement(700));
   const disabledTextColor = transparentize(0.2, useElement(400))
   const bgColor = isGhost ? 'transparent' : useElement(700);
-  const textColor = isGhost ? 'black.500' : 'white.500'
+  const textColor = isGhost ? 'black' : useElement(400)
   const cornerColor = useElement();
 
   return (

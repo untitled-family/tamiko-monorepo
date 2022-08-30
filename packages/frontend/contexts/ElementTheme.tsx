@@ -14,13 +14,13 @@ type Props = {
 };
 
 export interface IState {
-  primary: string;
-  setPrimary: Dispatch<SetStateAction<string>> | undefined;
+  color: string;
+  setColor: (color: string) => void;
 }
 
 const initialValue: IState = {
-  primary: "neutral",
-  setPrimary: undefined,
+  color: "neutral",
+  setColor: () => { },
 };
 
 export const ElementTheme = createContext(initialValue);
@@ -28,16 +28,16 @@ export const ElementTheme = createContext(initialValue);
 export const elements = omit(colors, ['white', 'black'])
 
 const ElementThemeProvider = ({ children }: Props) => {
-  const [primary, setPrimary] = useState("neutral");
+  const [color, setColor] = useState("neutral");
 
   return (
     <ElementTheme.Provider
       value={{
-        primary,
-        setPrimary,
+        color,
+        setColor,
       }}
     >
-      <Box bg={colors[primary][700]}>{children}</Box>
+      <Box bg={colors[color][700]}>{children}</Box>
     </ElementTheme.Provider >
   );
 };

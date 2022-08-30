@@ -8,9 +8,12 @@ import { Footer } from '@/components/Footer';
 import {
   useConnectModal,
 } from '@rainbow-me/rainbowkit';
+import { useAccount } from 'wagmi';
+import Link from 'next/link';
 
 export default function Home() {
   const { openConnectModal } = useConnectModal();
+  const { address } = useAccount()
 
   return (
     <>
@@ -22,6 +25,15 @@ export default function Home() {
         <SetGreeter />
       </Main>
       <Footer>
+        {address && (
+          <>
+            <Link href='/mint'>
+              <Button>Mint</Button></Link>
+            <Link href='/app'>
+              <Button>App</Button>
+            </Link>
+          </>
+        )}
         {openConnectModal && (
           <Button onClick={openConnectModal}>connect wallet</Button>
         )}

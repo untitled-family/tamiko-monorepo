@@ -73,10 +73,8 @@ const App = ({ Component, pageProps }: AppProps) => {
         <ChakraProvider theme={theme}>
           <ElementThemeProvider>
             <PhoneWrap>
-              <Header />
               <Component {...pageProps} />
             </PhoneWrap>
-            <Switcher />
           </ElementThemeProvider>
         </ChakraProvider>
       </RainbowKitProvider>

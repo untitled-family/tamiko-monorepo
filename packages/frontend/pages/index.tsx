@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Create-Web3 App</title>
+        <title>Tamiko</title>
       </Head>
 
       <Main>

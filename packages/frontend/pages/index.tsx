@@ -1,6 +1,5 @@
 import Head from 'next/head';
 
-
 import { GetGreeter, SetGreeter } from '../components/contract';
 import { Main } from '@/components/Main';
 import { Button } from '@/components/Button';
@@ -18,7 +17,6 @@ export default function Home() {
       <Head>
         <title>Tamiko</title>
       </Head>
-
       <Main>
         <GetGreeter />
         <SetGreeter />
@@ -27,7 +25,6 @@ export default function Home() {
         {openConnectModal && (
           <Button onClick={openConnectModal}>connect wallet</Button>
         )}
-
         <Button isGhost>wtf is tamiko?</Button>
       </Footer>
     </>

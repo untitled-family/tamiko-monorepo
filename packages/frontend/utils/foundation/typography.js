@@ -19,15 +19,15 @@ export const typography = {
   },
 
   fonts: {
-    heading: `'SF Pro', 'Inter', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    heading: `'bpdotsunicasesquarebold', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif`,
-    body: `'SF Pro', 'Inter', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    body: `'bpdotsunicasesquarebold', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif`,
   },
 
   fontSizes: {
-    sm: clamp(10, 10),
-    md: clamp(14, 14),
-    lg: clamp(18, 22, 'xs', 'sm'),
+    sm: clamp(14, 14),
+    md: clamp(16, 16),
+    lg: clamp(20, 20),
   },
 };

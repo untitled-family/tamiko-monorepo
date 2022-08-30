@@ -5,5 +5,5 @@ type Props = {
 };
 
 export const Footer = ({ children }: Props) => {
-  return <div>{children}</div>;
+  return <footer>{children}</footer>;
 };

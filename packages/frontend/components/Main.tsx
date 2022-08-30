@@ -9,6 +9,8 @@ type Props = {
 export const Main = ({ children, isCentered = true }: Props) => {
   return (
     <Flex
+      as='main'
+      flex={1}
       alignItems='center'
       justifyContent='center'
       textAlign={isCentered ? 'center' : 'left'}

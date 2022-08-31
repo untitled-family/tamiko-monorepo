@@ -4,5 +4,5 @@
 //   production: 1
 // }
 
-export const NETWORK_ID = 5;
+export const NETWORK_ID = 31337;
 export const NETWORK_NAME = 'localhost' as string;

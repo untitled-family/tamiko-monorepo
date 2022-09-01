@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { Main } from '@/components/Main';
+import AppLayout from '@/components/AppLayout';
 
 export default function App() {
   return (
@@ -7,9 +7,9 @@ export default function App() {
       <Head>
         <title>Tamiko - App</title>
       </Head>
-      <Main>
+      <AppLayout>
         This is the app
-      </Main>
+      </AppLayout>
     </>
   );
 }

@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { Main } from '@/components/Main';
 import { Box, Text } from '@chakra-ui/react';
 import { useAccount, useEnsName, useSigner } from "wagmi";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { trimAddress } from '@/utils/address';
 import Connected from '@/components/svg/Connected';
 import { Footer } from '@/components/Footer';
@@ -12,6 +12,8 @@ import { useRouter } from 'next/router'
 import { useContract } from '@/hooks/useContract';
 import EggLoader from '@/components/svg/EggLoader';
 import toast from 'react-hot-toast';
+import { useElement, useElementTheme } from '@/hooks';
+import { useRandomElement } from '@/hooks/useElementTheme';
 
 interface Step {
   copy: Array<string>,
@@ -22,7 +24,8 @@ interface Step {
 
 interface FnMap {
   mint: () => void,
-  increment: () => void
+  increment: () => void,
+  hatch: () => void
 }
 
 type FnMapKeys = keyof FnMap;
@@ -65,15 +68,17 @@ const steps: Step[] = [
   {
     copy: ['Congratulations!'],
     button: 'Hatch your Tamiko',
-    buttonFn: 'null'
+    buttonFn: 'hatch'
   }
 ]
 
 export default function Mint() {
+  const [color] = useElementTheme()
   const router = useRouter()
   const [step, setStep] = useState<number>(0)
   const [mintedId, setMintedId] = useState<number>(0)
   const { address } = useAccount()
+  const setRandomColor = useRandomElement()
   const trimedAddress = address ? trimAddress(address) : ''
   const { data: ensName } = useEnsName({
     address,
@@ -109,14 +114,25 @@ export default function Mint() {
     }
   }
 
+  const hatch = () => {
+    router.push(`/app/tamiko/${mintedId}`)
+  }
+
   const fnMap: FnMap = {
     increment,
-    mint
+    mint,
+    hatch
   }
 
   const handleEggSelect = () => {
     setStep(3)
   }
+
+  useEffect(() => {
+    if (color === 'neutral') {
+      setRandomColor(['neutral'])
+    }
+  }, [])
 
   if (!address) {
     router.push('/')

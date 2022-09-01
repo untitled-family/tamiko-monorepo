@@ -33,18 +33,19 @@ export default function Home() {
         <title>Tamiko</title>
       </Head>
       <Main>
-        {openConnectModal ? (
-          <>
-            <Idle />
-            <Text mt={1}>Not connected</Text>
-          </>
-        ) : (
-          <>
-            <Connected />
-            <Text mt={1}>Conntected</Text>
-          </>
-        )}
-
+        <div>
+          {openConnectModal ? (
+            <>
+              <Idle />
+              <Text mt={1}>Not connected</Text>
+            </>
+          ) : (
+            <>
+              <Connected />
+              <Text mt={1}>Conntected</Text>
+            </>
+          )}
+        </div>
       </Main>
       <Footer>
         {address && (

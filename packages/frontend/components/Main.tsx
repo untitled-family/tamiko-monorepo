@@ -15,7 +15,7 @@ export const Main = ({ children, isCentered = true }: Props) => {
       justifyContent='center'
       textAlign={isCentered ? 'center' : 'left'}
     >
-      <div>{children}</div>
+      {children}
     </Flex>
   );
 };

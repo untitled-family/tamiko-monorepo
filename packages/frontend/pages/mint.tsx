@@ -145,26 +145,28 @@ export default function Mint() {
         <title>Tamiko - Mint</title>
       </Head>
       <Main>
-        <Box mb={8}>
-          {(step === 0 || step === 1) && (
-            <Connected />
+        <div>
+          <Box mb={8}>
+            {(step === 0 || step === 1) && (
+              <Connected />
+            )}
+            {(step === 2 || step === 3) && (
+              <EggPicker onSelect={handleEggSelect} />
+            )}
+            {(step === 4 || step === 5 || step === 6) && (
+              <EggLoader />
+            )}
+          </Box>
+          {step === 0 && (<Text>{introP}</Text>)}
+          {steps[step].copy.map(p => {
+            return (
+              <Text mb={2} key={p}>{p}</Text>
+            )
+          })}
+          {step === 6 && (
+            <Text>{successP}</Text>
           )}
-          {(step === 2 || step === 3) && (
-            <EggPicker onSelect={handleEggSelect} />
-          )}
-          {(step === 4 || step === 5 || step === 6) && (
-            <EggLoader />
-          )}
-        </Box>
-        {step === 0 && (<Text>{introP}</Text>)}
-        {steps[step].copy.map(p => {
-          return (
-            <Text mb={2} key={p}>{p}</Text>
-          )
-        })}
-        {step === 6 && (
-          <Text>{successP}</Text>
-        )}
+        </div>
       </Main>
       <Footer>
         {steps[step].button && (

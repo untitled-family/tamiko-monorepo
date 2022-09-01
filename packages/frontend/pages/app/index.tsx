@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import AppLayout from '@/components/AppLayout';
+import GetTamikos from '@/components/contract/GetTamikos';
 
 export default function App() {
   return (
@@ -8,7 +9,7 @@ export default function App() {
         <title>Tamiko - App</title>
       </Head>
       <AppLayout>
-        This is the app
+        <GetTamikos />
       </AppLayout>
     </>
   );

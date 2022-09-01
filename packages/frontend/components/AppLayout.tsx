@@ -12,7 +12,7 @@ export default function AppLayout({ children }: Props) {
     <>
       <Main>{children}</Main>
       <Footer>
-        <SimpleGrid columns={4} gap={3}>
+        <SimpleGrid columns={4} gap={4}>
           <AppIcon name='Tamiko' href='/app' />
           <AppIcon name='bag' href='/app/inventory' />
           <AppIcon name='about' href='/about' />

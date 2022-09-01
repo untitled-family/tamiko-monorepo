@@ -1,9 +1,12 @@
+import useSigner from "@/hooks/useSigner";
+import { useSigner as useWagmiSigner } from "wagmi";
 import { Box, Flex } from "@chakra-ui/react";
 import {
   useConnectModal,
   useAccountModal,
 } from '@rainbow-me/rainbowkit';
 import Link from "next/link";
+import { useEffect } from "react";
 import { useAccount, useEnsName } from "wagmi";
 import { trimAddress } from '../utils/address'
 
@@ -14,6 +17,12 @@ export const Header = () => {
   const { data: ensName } = useEnsName({
     address,
   })
+  const [, setSigner] = useSigner()
+  const { data: wagmiSigner } = useWagmiSigner()
+
+  useEffect(() => {
+    setSigner(wagmiSigner)
+  }, [wagmiSigner])
 
   return (
     <Flex as='header' alignItems='center' justifyContent='space-between'>

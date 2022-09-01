@@ -20,7 +20,6 @@ export default function Home() {
   const { openConnectModal } = useConnectModal();
   const { address } = useAccount()
 
-
   useEffect(() => {
     if (address) {
       setRandomColor(['neutral'])

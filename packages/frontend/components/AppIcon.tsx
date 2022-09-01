@@ -2,10 +2,13 @@ import { useElement } from "@/hooks";
 import { AspectRatio, Box, Text } from "@chakra-ui/react";
 import { omit } from "lodash";
 import Link from "next/link";
+import { ReactNode } from "react";
 
 type Props = {
   name: string;
-  href: string
+  href: string;
+  tokenId?: number;
+  children?: ReactNode
 };
 
 const corners = [
@@ -15,7 +18,7 @@ const corners = [
   { id: 3, bottom: 0, right: 0 }
 ];
 
-export default function AppIcon({ name, href }: Props) {
+export default function AppIcon({ name, href, children }: Props) {
   const cornerColor = useElement();
 
   return (
@@ -36,8 +39,8 @@ export default function AppIcon({ name, href }: Props) {
                 {...omit(corner, ['id'])}
               />
             ))}
+            {children}
           </Box>
-
         </AspectRatio>
         <Text mt={1} textColor='white' fontSize='xs' textAlign='center'>{name}</Text>
       </Box>

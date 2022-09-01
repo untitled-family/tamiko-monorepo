@@ -24,6 +24,7 @@ import ElementThemeProvider from '@/contexts/ElementTheme';
 import { PhoneWrap } from '@/components/PhoneWrap';
 import { Header } from '@/components/Header';
 import { Switcher } from '@/components/Switcher';
+import Provider from '@/contexts/Provider';
 
 // Get environment variables
 const alchemyId = process.env.NEXT_PUBLIC_ALCHEMY_ID as string;
@@ -72,14 +73,16 @@ const App = ({ Component, pageProps }: AppProps) => {
           <title>Tamiko</title>
         </NextHead>
         <ChakraProvider theme={theme}>
-          <ElementThemeProvider>
-            <PhoneWrap>
-              <Header />
-              <Component {...pageProps} />
-              <Toaster />
-            </PhoneWrap>
-            <Switcher />
-          </ElementThemeProvider>
+          <Provider>
+            <ElementThemeProvider>
+              <PhoneWrap>
+                <Header />
+                <Component {...pageProps} />
+                <Toaster />
+              </PhoneWrap>
+              <Switcher />
+            </ElementThemeProvider>
+          </Provider>
         </ChakraProvider>
       </RainbowKitProvider>
     </WagmiConfig>

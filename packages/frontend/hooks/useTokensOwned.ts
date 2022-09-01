@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useContract } from "./useContract";
+import useSigner from "./useSigner";
 
-export const useTokensOwned = (address: string | undefined, signer: any) => {
+export const useTokensOwned = (address: string | undefined) => {
+  const [signer] = useSigner()
   const [tokens, setTokens] = useState<number[]>([])
   const [isLoading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<any>(null)
@@ -9,6 +11,7 @@ export const useTokensOwned = (address: string | undefined, signer: any) => {
 
   const getTokens = async () => {
     setLoading(true)
+    setError(null)
     const tokens: number[] = []
 
     try {
@@ -34,8 +37,11 @@ export const useTokensOwned = (address: string | undefined, signer: any) => {
     }
   }
 
+  useEffect(() => {
+    getTokens()
+  }, [signer])
+
   return {
-    getTokens,
     tokens,
     isLoading,
     error

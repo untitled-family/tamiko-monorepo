@@ -1,25 +1,12 @@
 import { useTokensOwned } from "@/hooks";
 import { Box, SimpleGrid } from "@chakra-ui/react";
-import { useEffect } from "react";
-import { useAccount, useSigner } from "wagmi";
+import { useAccount } from "wagmi";
 import AppIcon from "../AppIcon";
+import TamikoImage from "./TamikoImage";
 
 export default function GetTamikos() {
   const { address } = useAccount()
-  const { data: signer } = useSigner()
-  const { getTokens, tokens, isLoading, error } = useTokensOwned(address, signer)
-
-  const fetchTokens = async () => {
-    const tokens = await getTokens()
-
-    console.log('tokens', tokens)
-  }
-
-  useEffect(() => {
-    if (signer) {
-      fetchTokens()
-    }
-  }, [signer])
+  const { tokens, isLoading } = useTokensOwned(address)
 
   return (
     <Box w='full'>
@@ -28,7 +15,9 @@ export default function GetTamikos() {
       ) : (
         <SimpleGrid columns={2} gap={4}>
           {tokens.map(tokenId => (
-            <AppIcon name={`#${tokenId}`} href={`/app/tamiko/${tokenId}`} />
+            <AppIcon key={tokenId} name={`Tamiko #${tokenId}`} href={`/app/tamiko/${tokenId}`}>
+              <TamikoImage tokenId={tokenId} />
+            </AppIcon>
           ))}
         </SimpleGrid>
       )}

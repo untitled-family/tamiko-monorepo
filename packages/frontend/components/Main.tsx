@@ -4,9 +4,10 @@ import { ReactNode } from "react";
 type Props = {
   children: ReactNode;
   isCentered?: boolean;
+  py?: number | string
 };
 
-export const Main = ({ children, isCentered = true }: Props) => {
+export const Main = ({ children, isCentered = true, py }: Props) => {
   return (
     <Flex
       as='main'
@@ -14,6 +15,7 @@ export const Main = ({ children, isCentered = true }: Props) => {
       alignItems='center'
       justifyContent='center'
       textAlign={isCentered ? 'center' : 'left'}
+      py={py}
     >
       {children}
     </Flex>

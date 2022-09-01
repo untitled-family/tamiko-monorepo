@@ -1,6 +1,6 @@
 import { Box, SimpleGrid } from "@chakra-ui/react";
 import { useState } from "react";
-import Egg from "./svg/Egg";
+import Egg from "./svg/EggSelectable";
 
 const eggs = [0, 1, 2]
 

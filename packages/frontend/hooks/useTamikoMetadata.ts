@@ -7,7 +7,7 @@ interface Metadata {
   image: string;
 }
 
-export const useTamikoMetadata = (tokenId: number) => {
+export const useTamikoMetadata = (tokenId: number | string) => {
   const [signer] = useSigner()
   const [metadata, setMetadata] = useState<Metadata | null>(null)
   const [isLoading, setLoading] = useState<boolean>(false)

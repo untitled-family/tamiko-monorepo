@@ -1,10 +1,11 @@
 import * as React from 'react';
 import type { AppProps } from 'next/app';
 import NextHead from 'next/head';
+import { Toaster } from 'react-hot-toast';
+import { ChakraProvider } from '@chakra-ui/react';
+
 import '../styles/globals.css';
 import { theme } from '../utils/theme';
-
-import { ChakraProvider } from '@chakra-ui/react';
 
 // Imports
 import { chain, createClient, WagmiConfig, configureChains } from 'wagmi';
@@ -75,6 +76,7 @@ const App = ({ Component, pageProps }: AppProps) => {
             <PhoneWrap>
               <Header />
               <Component {...pageProps} />
+              <Toaster />
             </PhoneWrap>
             <Switcher />
           </ElementThemeProvider>

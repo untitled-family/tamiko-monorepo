@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { Main } from '@/components/Main';
 import { Box, Text } from '@chakra-ui/react';
 import { useAccount, useEnsName, useSigner } from "wagmi";
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { trimAddress } from '@/utils/address';
 import Connected from '@/components/svg/Connected';
 import { Footer } from '@/components/Footer';
@@ -10,6 +10,8 @@ import { Button } from '@/components/Button';
 import EggPicker from '@/components/EggPicker';
 import { useRouter } from 'next/router'
 import { useContract } from '@/hooks/useContract';
+import EggLoader from '@/components/svg/EggLoader';
+import toast from 'react-hot-toast';
 
 interface Step {
   copy: Array<string>,
@@ -101,9 +103,9 @@ export default function Mint() {
 
       const token = await tamikoContract.tokenURI(tokenId)
       console.log('token', token)
-    } catch (e) {
+    } catch (e: any) {
       setStep(3)
-      console.dir(e)
+      toast.error(e.reason || e.message)
     }
   }
 
@@ -128,11 +130,14 @@ export default function Mint() {
       </Head>
       <Main>
         <Box mb={8}>
-          {step < 2 && (
+          {(step === 0 || step === 1) && (
             <Connected />
           )}
-          {step >= 2 && (
+          {(step === 2 || step === 3) && (
             <EggPicker onSelect={handleEggSelect} />
+          )}
+          {(step === 4 || step === 5 || step === 6) && (
+            <EggLoader />
           )}
         </Box>
         {step === 0 && (<Text>{introP}</Text>)}

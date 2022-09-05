@@ -273,6 +273,10 @@ contract Tamiko is ERC721A, Ownable {
         );
         tamikos[_currentTokenId].breeder = msg.sender;
 
+        skills[_currentTokenId].speed = 13;
+        skills[_currentTokenId].defense = 43;
+        skills[_currentTokenId].power = 69;
+
         emit Mint(_currentTokenId);
     }
 

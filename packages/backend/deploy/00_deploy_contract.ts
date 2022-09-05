@@ -83,7 +83,7 @@ const main: DeployFunction = async function ({ getNamedAccounts, deployments }: 
 
   const [owner] = await ethers.getSigners();
   await owner.sendTransaction({
-    to: "0xDdB52387CDC1556C75cb4e3efcD9a3B12488C9dE",
+    to: "0xFF5FE6e0D3D48c90A66217dd4A7560a3ed8dACD2",
     value: ethers.utils.parseEther("1.0"), // Sends exactly 1.0 ether
   });
 };

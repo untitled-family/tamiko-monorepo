@@ -42,6 +42,9 @@ contract TamikoRenderer is ITamikoRenderer {
     ) external view returns (string memory) {
         uint256 hatchStatus = TamikoLibrary.getHatchStatus(_tamiko, _timings);
         uint256 level = TamikoLibrary.getLevelStatus(_tamiko, _timings);
+        uint256 hatchDate = _timings.hatchDate;
+        uint256 lastFed = _timings.lastFed;
+
         string memory img;
 
         if (level == 0) {
@@ -95,6 +98,28 @@ contract TamikoRenderer is ITamikoRenderer {
                                 helpers.attribute(
                                     "defense",
                                     helpers.uint2str(_skills.defense),
+                                    true
+                                ),
+                                "],",
+                                '"properties": [',
+                                helpers.attribute(
+                                    "hatchStatus",
+                                    helpers.uint2str(hatchStatus),
+                                    false
+                                ),
+                                helpers.attribute(
+                                    "level",
+                                    helpers.uint2str(level),
+                                    true
+                                ),
+                                helpers.attribute(
+                                    "hatchDate",
+                                    helpers.uint2str(hatchDate),
+                                    true
+                                ),
+                                helpers.attribute(
+                                    "lastFed",
+                                    helpers.uint2str(lastFed),
                                     true
                                 ),
                                 "],",

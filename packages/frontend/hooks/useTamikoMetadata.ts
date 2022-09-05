@@ -1,19 +1,21 @@
+import { toastError } from "@/utils/error";
 import { attributesToObject, extractAttributes } from "@/utils/metadata";
 import { useEffect, useState } from "react"
 import { useContract } from "./useContract"
 import useSigner from "./useSigner"
 
-type Metadata = {
+export type Metadata = {
   name: string;
   image: string;
+  attributes: Attribute[]
 }
 
-type Attribute = {
+export type Attribute = {
   trait_type: string;
   value: string;
 }
 
-type Property = {
+export type Property = {
   hatchStatus: string,
   level: string,
   hatchDate: string,
@@ -48,6 +50,7 @@ export const useTamikoMetadata = (tokenId: number | string) => {
       setProperties(attributesToObject(json.properties))
       setLoading(false)
     } catch (e) {
+      toastError(e)
       setLoading(false)
       setError(e)
     }

@@ -2,7 +2,8 @@ import toast from 'react-hot-toast';
 
 const customErrors: { [name: string]: string } = {
   HasStartedHatching: 'Tamiko is already hatching',
-  NotTamikoOwner: 'You do not own this Tamiko'
+  NotTamikoOwner: 'You do not own this Tamiko',
+  NonExistentTamiko: 'This Tamiko does not exist'
 }
 
 export const extractErrorMessage = (error: any) => {

@@ -1,13 +1,12 @@
 import { useElement } from "@/hooks";
-import { useTamikoMetadata } from "@/hooks/useTamikoMetadata";
+import { Attribute } from "@/hooks/useTamikoMetadata";
 import { Box, Flex, Text } from "@chakra-ui/react";
 
-type Strength = {
-  tokenId: number
+type Props = {
+  abilities: Attribute[] | null
 }
 
-export default function TamikoStrength({ tokenId }: Strength) {
-  const { abilities } = useTamikoMetadata(tokenId)
+export default function TamikoStrength({ abilities }: Props) {
   const light = useElement(400)
   const normal = useElement(600)
 

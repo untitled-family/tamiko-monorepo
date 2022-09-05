@@ -4,6 +4,8 @@ type Attribute = {
 }
 
 export const extractAttributes = (attributes: Attribute[], traits: string[]) => {
+  if (!attributes) return []
+
   const filtered = attributes.map(attr => traits.includes(attr.trait_type) && attr)
 
   return filtered.filter(o => o !== false ? o : null)

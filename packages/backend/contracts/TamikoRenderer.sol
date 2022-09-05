@@ -66,9 +66,9 @@ contract TamikoRenderer is ITamikoRenderer {
                                 '"name": "Tamiko",',
                                 '"attributes":[',
                                 helpers.attribute(
-                                    "breeder",
+                                    "hatcher",
                                     Strings.toHexString(
-                                        uint256(uint160(_tamiko.breeder)),
+                                        uint256(uint160(_tamiko.hatcher)),
                                         20
                                     ),
                                     false

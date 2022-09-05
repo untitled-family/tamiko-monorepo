@@ -1,13 +1,12 @@
-import { useTamikoMetadata } from "@/hooks/useTamikoMetadata";
+import { Property } from "@/hooks/useTamikoMetadata";
 import { Box, SimpleGrid } from "@chakra-ui/react";
 
-type Strength = {
-  tokenId: number
+type Props = {
+  tokenId: number,
+  properties: Property | null
 }
 
-export default function TamikoInfo({ tokenId }: Strength) {
-  const { properties } = useTamikoMetadata(tokenId)
-
+export default function TamikoInfo({ properties, tokenId }: Props) {
   return (
     <SimpleGrid columns={3} gap={4}>
       {properties && (

@@ -1,16 +1,17 @@
 import { useContract } from "@/hooks/useContract"
 import useSigner from "@/hooks/useSigner"
-import { useTamikoMetadata } from "@/hooks/useTamikoMetadata"
+import { Property } from "@/hooks/useTamikoMetadata"
 import { toastError } from "@/utils/error";
 import { useState } from "react"
 import { Button } from "../Button"
 
 type Props = {
-  tokenId: number | string
+  tokenId: number
+  properties: Property | null,
+  onHatch: () => void
 }
 
-export default function TamikoHatch({ tokenId }: Props) {
-  const { properties } = useTamikoMetadata(tokenId)
+export default function TamikoHatch({ properties, tokenId, onHatch }: Props) {
   const [isLoading, setLoading] = useState<boolean>(false)
   const [signer] = useSigner()
   const tamikoContract = useContract('Tamiko', signer)
@@ -22,6 +23,7 @@ export default function TamikoHatch({ tokenId }: Props) {
       const tx = await tamikoContract.startHatchingProcess(tokenId)
       await tx.wait()
 
+      onHatch()
       setLoading(false)
     } catch (e) {
       toastError(e)

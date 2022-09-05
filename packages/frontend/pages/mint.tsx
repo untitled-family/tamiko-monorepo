@@ -14,6 +14,7 @@ import EggLoader from '@/components/svg/EggLoader';
 import toast from 'react-hot-toast';
 import { useElementTheme } from '@/hooks';
 import { useRandomElement } from '@/hooks/useElementTheme';
+import { toastError } from '@/utils/error';
 
 interface Step {
   copy: Array<string>,
@@ -107,10 +108,9 @@ export default function Mint() {
       setMintedId(tokenId)
 
       const token = await tamikoContract.tokenURI(tokenId)
-      console.log('token', token)
     } catch (e: any) {
       setStep(3)
-      toast.error(e.reason || e.message)
+      toastError(e)
     }
   }
 

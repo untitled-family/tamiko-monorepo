@@ -1,6 +1,7 @@
 import { useContract } from "@/hooks/useContract"
 import useSigner from "@/hooks/useSigner"
 import { useTamikoMetadata } from "@/hooks/useTamikoMetadata"
+import { toastError } from "@/utils/error";
 import { useState } from "react"
 import { Button } from "../Button"
 
@@ -23,8 +24,8 @@ export default function TamikoHatch({ tokenId }: Props) {
 
       setLoading(false)
     } catch (e) {
+      toastError(e)
       setLoading(false)
-      console.dir(e)
     }
   }
 

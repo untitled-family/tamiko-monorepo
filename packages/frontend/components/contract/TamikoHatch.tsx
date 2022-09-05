@@ -1,4 +1,6 @@
+import { useElement } from "@/hooks";
 import { useContract } from "@/hooks/useContract"
+import { usePercentageCountdown } from "@/hooks/usePercentageCountdown";
 import useSigner from "@/hooks/useSigner"
 import { Property } from "@/hooks/useTamikoMetadata"
 import { toastError } from "@/utils/error";
@@ -13,9 +15,17 @@ type Props = {
 }
 
 export default function TamikoHatch({ properties, tokenId, onHatch }: Props) {
+  const light = useElement(400)
+  const normal = useElement(600)
   const [isLoading, setLoading] = useState<boolean>(false)
   const [signer] = useSigner()
   const tamikoContract = useContract('Tamiko', signer)
+  const isHatching = parseInt(properties?.hatchStatus as string) === 1
+  const timer = usePercentageCountdown(
+    parseInt(properties?.hatchDate as string) * 1000,
+    100000,
+    () => { console.log('ended') }
+  )
 
   const hatch = async () => {
     setLoading(true)
@@ -32,7 +42,12 @@ export default function TamikoHatch({ properties, tokenId, onHatch }: Props) {
     }
   }
 
-  if (properties?.hatchStatus && parseInt(properties?.hatchStatus)) return <></>
-
-  return <Box my={6}><Button onClick={hatch} isLoading={isLoading}>Begin hatching</Button></Box>
+  return (
+    <Box my={6}>
+      <Box mb={2} position='relative' w='full' h='6px' bg={light}>
+        <Box w={`${timer}%`} height='full' position='absolute' top={0} left={0} bg={normal} />
+      </Box>
+      <Button onClick={hatch} isLoading={isLoading || isHatching} disabled={isHatching}>Begin hatching</Button>
+    </Box>
+  )
 }

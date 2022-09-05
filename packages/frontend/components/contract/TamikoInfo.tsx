@@ -58,7 +58,6 @@ export default function TamikoInfo({ properties, tokenId }: Props) {
   const hasHatched = parseInt(properties?.hatchStatus as string) >= 2
   const type = hasHatched ? 'bug' : 'unknown'
   const level = hasHatched ? `lvl ${properties?.level}` : 'egg'
-  console.log('properties', properties)
 
   return (
     <Flex my={6}>

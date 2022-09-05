@@ -20,6 +20,7 @@ const Tamiko = () => {
 
   useEffect(() => {
     if (color !== 'neutral' && !hasHatched) {
+      // @ts-ignore
       setColor('neutral')
     }
   }, [])

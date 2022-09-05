@@ -70,25 +70,22 @@ const main: DeployFunction = async function ({ getNamedAccounts, deployments }: 
     log: true
   })
 
-  // const TamikoStore = await ethers.getContractFactory("TamikoStore")
-  // const tamikoStore = await TamikoStore.attach(tamikoStoreDeploy.address)
-  // await tamikoStore.setTamikoContract(tamikoDeploy.address)
-  // await tamikoStore.addItem(foodItem.name, foodItem.description, foodItem.svg, foodItem.price, deployer)
-  // await tamikoStore.addItem(magicPotionItem.name, magicPotionItem.description, magicPotionItem.svg, magicPotionItem.price, deployer)
-  // await tamikoStore.addItem(reviveItem.name, reviveItem.description, reviveItem.svg, reviveItem.price, deployer)
+  const TamikoStore = await ethers.getContractFactory("TamikoStore")
+  const tamikoStore = await TamikoStore.attach(tamikoStoreDeploy.address)
+  await tamikoStore.setTamikoContract(tamikoDeploy.address)
+  await tamikoStore.addItem(foodItem.name, foodItem.description, foodItem.svg, foodItem.price, deployer)
+  await tamikoStore.addItem(magicPotionItem.name, magicPotionItem.description, magicPotionItem.svg, magicPotionItem.price, deployer)
+  await tamikoStore.addItem(reviveItem.name, reviveItem.description, reviveItem.svg, reviveItem.price, deployer)
 
-  // console.log('added tamikostore items')
+  const TamikoLink = await ethers.getContractFactory("TamikoLink")
+  const tamikoLink = await TamikoLink.attach(tamikoLinkDeploy.address)
+  await tamikoLink.setTamikoContract(tamikoDeploy.address)
 
-  // const TamikoLink = await ethers.getContractFactory("TamikoLink")
-  // const tamikoLink = await TamikoLink.attach(tamikoLinkDeploy.address)
-  // await tamikoLink.setTamikoContract(tamikoDeploy.address)
-
-  // console.log('added tamikolink')
-  // const [owner] = await ethers.getSigners();
-  // await owner.sendTransaction({
-  //   to: "0xFF5FE6e0D3D48c90A66217dd4A7560a3ed8dACD2",
-  //   value: ethers.utils.parseEther("1.0"), // Sends exactly 1.0 ether
-  // });
+  const [owner] = await ethers.getSigners();
+  await owner.sendTransaction({
+    to: "0xFF5FE6e0D3D48c90A66217dd4A7560a3ed8dACD2",
+    value: ethers.utils.parseEther("1.0"), // Sends exactly 1.0 ether
+  });
 };
 
 export default main;

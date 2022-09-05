@@ -49,6 +49,10 @@ export const Button = ({
       cursor={disabled ? 'not-allowed' : 'pointer'}
       isLoading={isLoading}
       height='auto'
+      _hover={{
+        bg: disabled ? disabledBg : bgColor,
+        textColor: disabled ? disabledTextColor : textColor
+      }}
       {...rest}
     >
       {!isGhost &&

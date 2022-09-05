@@ -38,7 +38,7 @@ export const useTokensOwned = (address: string | undefined) => {
   }
 
   useEffect(() => {
-    getTokens()
+    if (signer) getTokens()
   }, [signer])
 
   return {

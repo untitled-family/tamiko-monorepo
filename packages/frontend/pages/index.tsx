@@ -13,15 +13,16 @@ import Idle from '@/components/svg/Idle';
 import { Text } from '@chakra-ui/react';
 import Connected from '@/components/svg/Connected';
 import { useEffect } from 'react';
-import { useRandomElement } from '@/hooks/useElementTheme';
+import { useElementTheme, useRandomElement } from '@/hooks/useElementTheme';
 
 export default function Home() {
+  const [color] = useElementTheme()
   const setRandomColor = useRandomElement()
   const { openConnectModal } = useConnectModal();
   const { address } = useAccount()
 
   useEffect(() => {
-    if (address) {
+    if (address && color === 'neutral') {
       setRandomColor(['neutral'])
     }
   }, [address])

@@ -12,7 +12,7 @@ import { useRouter } from 'next/router'
 import { useContract } from '@/hooks/useContract';
 import EggLoader from '@/components/svg/EggLoader';
 import toast from 'react-hot-toast';
-import { useElement, useElementTheme } from '@/hooks';
+import { useElementTheme } from '@/hooks';
 import { useRandomElement } from '@/hooks/useElementTheme';
 
 interface Step {

@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Button as ChakraButton } from "@chakra-ui/react";
 import { ReactNode } from "react";
 import { omit } from 'lodash'
 import { transparentize } from "polished";
@@ -8,6 +8,7 @@ import { useElement } from "../hooks/useElementTheme";
 type Props = {
   children: ReactNode;
   isGhost?: boolean;
+  isLoading?: boolean;
   disabled?: boolean;
   onClick?: () => void;
 };
@@ -22,6 +23,7 @@ const corners = [
 export const Button = ({
   children,
   isGhost = false,
+  isLoading = false,
   disabled,
   onClick,
   ...rest
@@ -33,7 +35,7 @@ export const Button = ({
   const cornerColor = useElement();
 
   return (
-    <Box
+    <ChakraButton
       disabled={disabled}
       as='button'
       bg={disabled ? disabledBg : bgColor}
@@ -45,6 +47,8 @@ export const Button = ({
       w='full'
       onClick={onClick}
       cursor={disabled ? 'not-allowed' : 'pointer'}
+      isLoading={isLoading}
+      height='auto'
       {...rest}
     >
       {!isGhost &&
@@ -62,6 +66,6 @@ export const Button = ({
           />
         ))}
       {children}
-    </Box>
+    </ChakraButton>
   );
 };

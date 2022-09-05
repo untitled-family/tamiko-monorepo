@@ -160,11 +160,11 @@ export default function Mint() {
           {step === 0 && (<Text>{introP}</Text>)}
           {steps[step].copy.map(p => {
             return (
-              <Text mb={2} key={p}>{p}</Text>
+              <Text lineHeight='20px' mb={2} key={p}>{p}</Text>
             )
           })}
           {step === 6 && (
-            <Text>{successP}</Text>
+            <Text lineHeight='20px'>{successP}</Text>
           )}
         </div>
       </Main>

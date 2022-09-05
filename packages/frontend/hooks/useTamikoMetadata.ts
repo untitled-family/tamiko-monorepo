@@ -42,7 +42,9 @@ export const useTamikoMetadata = (tokenId: number | string) => {
       const abilities = extractAttributes(json.attributes, ['speed', 'power', 'defense'])
 
       setMetadata(json)
+      // @ts-ignore
       setAbilities(abilities)
+      // @ts-ignore
       setProperties(attributesToObject(json.properties))
       setLoading(false)
     } catch (e) {

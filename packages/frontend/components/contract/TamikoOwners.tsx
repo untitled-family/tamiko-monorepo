@@ -1,8 +1,10 @@
+import { useElement } from "@/hooks";
 import { useOwner } from "@/hooks/useOwner";
 import { Metadata, Attribute } from "@/hooks/useTamikoMetadata";
 import { trimAddress } from "@/utils/address";
 import { extractAttributes } from "@/utils/metadata";
-import { Box, SimpleGrid, Text } from "@chakra-ui/react";
+import { Box, Flex, SimpleGrid, Text } from "@chakra-ui/react";
+import { transparentize } from "polished";
 import { useEnsName } from "wagmi";
 
 type Props = {
@@ -13,8 +15,11 @@ type Props = {
 export default function TamikoOwners({ metadata, tokenId }: Props) {
   const attributes = extractAttributes(metadata?.attributes as Attribute[], ['hatcher'])
 
-  if (!attributes.length) return false
+  if (!attributes.length) return <></>
 
+  const darker = useElement(700)
+  const dark = useElement(600)
+  // @ts-ignore
   const hatcher = attributes[0].value
   const { data: hatcherEns } = useEnsName({ address: hatcher })
   const hatcherName = hatcherEns || trimAddress(hatcher)
@@ -23,15 +28,21 @@ export default function TamikoOwners({ metadata, tokenId }: Props) {
   const ownerName = ownerEns || trimAddress(owner)
 
   return (
-    <SimpleGrid columns={2} gap={4}>
-      <Box>
-        <Text>Parent</Text>
-        <Text>{ownerName}</Text>
+    <Flex
+      py={4} borderWidth='2px'
+      borderStyle='dashed'
+      borderColor={transparentize(0.9, darker)}
+      borderLeftColor='transparent'
+      borderRightColor='transparent'
+    >
+      <Box w='50%'>
+        <Text textColor={dark}>Parent</Text>
+        <Text textColor={darker}>{ownerName}</Text>
       </Box>
-      <Box>
-        <Text>Hatcher</Text>
-        <Text>{hatcherName}</Text>
+      <Box w='50%'>
+        <Text textColor={dark}>Hatcher</Text>
+        <Text textColor={darker}>{hatcherName}</Text>
       </Box>
-    </SimpleGrid>
+    </Flex>
   )
 }

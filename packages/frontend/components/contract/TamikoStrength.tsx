@@ -11,7 +11,7 @@ export default function TamikoStrength({ abilities }: Props) {
   const normal = useElement(600)
 
   return (
-    <Box>
+    <Box my={6}>
       {abilities && abilities.map(ability => (
         <Box key={ability.trait_type} mb={3}>
           <Flex alignItems='center' justifyContent='space-between'>

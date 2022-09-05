@@ -13,6 +13,7 @@ const Tamiko = () => {
   const { id } = router.query
   const intId = parseInt(id as string, 10)
   const { properties, abilities, metadata, refresh } = useTamikoMetadata(intId)
+  const hasHatched = parseInt(properties?.hatchStatus as string) >= 2
 
   return (
     <AppLayout>
@@ -20,10 +21,12 @@ const Tamiko = () => {
         {id && (
           <>
             <TamikoImage tokenId={intId} />
-            <Text>Tamiko: {id}</Text>
+            <Text fontSize='lg'>Tamiko: #{id}</Text>
             <TamikoInfo properties={properties} tokenId={intId} />
             <TamikoOwners metadata={metadata} tokenId={intId} />
-            <TamikoStrength abilities={abilities} />
+            {hasHatched && (
+              <TamikoStrength abilities={abilities} />
+            )}
             <TamikoHatch properties={properties} tokenId={intId} onHatch={refresh} />
           </>
         )}

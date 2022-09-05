@@ -2,6 +2,7 @@ import { useContract } from "@/hooks/useContract"
 import useSigner from "@/hooks/useSigner"
 import { Property } from "@/hooks/useTamikoMetadata"
 import { toastError } from "@/utils/error";
+import { Box } from "@chakra-ui/react";
 import { useState } from "react"
 import { Button } from "../Button"
 
@@ -33,5 +34,5 @@ export default function TamikoHatch({ properties, tokenId, onHatch }: Props) {
 
   if (properties?.hatchStatus && parseInt(properties?.hatchStatus)) return <></>
 
-  return <Button onClick={hatch} isLoading={isLoading}>Hatch</Button>
+  return <Box my={6}><Button onClick={hatch} isLoading={isLoading}>Begin hatching</Button></Box>
 }

@@ -68,7 +68,7 @@ const App = ({ Component, pageProps }: AppProps) => {
   if (!isMounted) return null;
   return (
     <WagmiConfig client={wagmiClient}>
-      <RainbowKitProvider coolMode chains={chains}>
+      <RainbowKitProvider chains={chains}>
         <NextHead>
           <title>Tamiko</title>
         </NextHead>

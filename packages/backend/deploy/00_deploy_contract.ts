@@ -71,22 +71,36 @@ const main: DeployFunction = async function ({ getNamedAccounts, deployments }: 
     log: true
   })
 
+  console.log('setting Tamiko contract on TamikoStore')
+  const TamikoStore = await ethers.getContractFactory("TamikoStore")
+  const tamikoStore = await TamikoStore.attach(tamikoStoreDeploy.address)
+  const setTamikoContract = await tamikoStore.setTamikoContract(tamikoDeploy.address)
+  console.log('waiting for tx...')
+  await setTamikoContract.wait()
+  console.log('adding food item')
+  const addFood = await tamikoStore.addItem(foodItem.name, foodItem.description, foodItem.svg, foodItem.price, deployer)
+  console.log('waiting for tx...')
+  await addFood.wait()
+  console.log('adding magic')
+  const addMagic = await tamikoStore.addItem(magicPotionItem.name, magicPotionItem.description, magicPotionItem.svg, magicPotionItem.price, deployer)
+  console.log('waiting for tx...')
+  await addMagic.wait()
+  console.log('adding revive')
+  const addRevive = await tamikoStore.addItem(reviveItem.name, reviveItem.description, reviveItem.svg, reviveItem.price, deployer)
+  console.log('waiting for tx...')
+  await addRevive.wait()
+
+  console.log('setting Tamiko contract on TamikoLink')
+  const TamikoLink = await ethers.getContractFactory("TamikoLink")
+  const tamikoLink = await TamikoLink.attach(tamikoLinkDeploy.address)
+  await tamikoLink.setTamikoContract(tamikoDeploy.address)
+  console.log('all done.')
+
   if (networkName === 'localhost') {
-    const TamikoStore = await ethers.getContractFactory("TamikoStore")
-    const tamikoStore = await TamikoStore.attach(tamikoStoreDeploy.address)
-    await tamikoStore.setTamikoContract(tamikoDeploy.address)
-    await tamikoStore.addItem(foodItem.name, foodItem.description, foodItem.svg, foodItem.price, deployer)
-    await tamikoStore.addItem(magicPotionItem.name, magicPotionItem.description, magicPotionItem.svg, magicPotionItem.price, deployer)
-    await tamikoStore.addItem(reviveItem.name, reviveItem.description, reviveItem.svg, reviveItem.price, deployer)
-
-    const TamikoLink = await ethers.getContractFactory("TamikoLink")
-    const tamikoLink = await TamikoLink.attach(tamikoLinkDeploy.address)
-    await tamikoLink.setTamikoContract(tamikoDeploy.address)
-
     const [owner] = await ethers.getSigners();
     await owner.sendTransaction({
       to: "0xFF5FE6e0D3D48c90A66217dd4A7560a3ed8dACD2",
-      value: ethers.utils.parseEther("1.0"), // Sends exactly 1.0 ether
+      value: ethers.utils.parseEther("1.0")
     });
   }
 };

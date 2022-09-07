@@ -6,7 +6,7 @@ import TamikoOwners from '@/components/contract/TamikoOwners'
 import TamikoStrength from '@/components/contract/TamikoStrength'
 import { useElementTheme } from '@/hooks'
 import { useTamikoMetadata } from '@/hooks/useTamikoMetadata'
-import { Box, Text } from '@chakra-ui/react'
+import { Box, Image, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
@@ -34,7 +34,7 @@ const Tamiko = () => {
 
         {!isNaN(intId) && (
           <>
-            <TamikoImage tokenId={intId} hasHatched={hasHatched} />
+            <Image w='full' src={metadata?.image} alt={metadata?.name} />
             <Text fontSize='lg'>Tamiko: #{id}</Text>
             <TamikoInfo properties={properties} tokenId={intId} />
             <TamikoOwners metadata={metadata} tokenId={intId} />

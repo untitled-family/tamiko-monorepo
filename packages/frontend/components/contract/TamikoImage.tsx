@@ -3,7 +3,7 @@ import { Image } from "@chakra-ui/react"
 
 type Props = {
   tokenId: number,
-  hasHatched: boolean
+  hasHatched?: boolean
 }
 
 export default function TamikoImage({ tokenId, hasHatched }: Props) {

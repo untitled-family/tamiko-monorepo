@@ -15,7 +15,7 @@ const Tamiko = () => {
   const { id } = router.query
   const [, setColor] = useElementTheme()
   const intId = parseInt(id as string, 10)
-  const { properties, abilities, metadata, refresh, isLoading } = useTamikoMetadata(intId)
+  const { properties, abilities, metadata, refresh } = useTamikoMetadata(intId)
   const hasHatched = parseInt(properties?.hatchStatus as string) >= 2
 
   useEffect(() => {

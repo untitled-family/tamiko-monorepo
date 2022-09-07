@@ -13,22 +13,26 @@ import { useEffect } from 'react'
 const Tamiko = () => {
   const router = useRouter()
   const { id } = router.query
-  const [color, setColor] = useElementTheme()
+  const [, setColor] = useElementTheme()
   const intId = parseInt(id as string, 10)
-  const { properties, abilities, metadata, refresh } = useTamikoMetadata(intId)
+  const { properties, abilities, metadata, refresh, isLoading } = useTamikoMetadata(intId)
   const hasHatched = parseInt(properties?.hatchStatus as string) >= 2
 
   useEffect(() => {
-    if (color !== 'neutral' && !hasHatched) {
+    if (!hasHatched) {
       // @ts-ignore
       setColor('neutral')
+    } else {
+      // @ts-ignore
+      setColor('bug')
     }
-  }, [])
+  }, [hasHatched])
 
   return (
     <AppLayout>
       <Box w='full'>
-        {id && (
+
+        {!isNaN(intId) && (
           <>
             <TamikoImage tokenId={intId} />
             <Text fontSize='lg'>Tamiko: #{id}</Text>

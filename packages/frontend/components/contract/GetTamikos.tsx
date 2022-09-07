@@ -9,7 +9,7 @@ export default function GetTamikos() {
   const { tokens, isLoading } = useTokensOwned(address)
 
   return (
-    <Box w='full'>
+    <Box w='full' alignSelf='flex-start'>
       {isLoading ? (
         <div>loading...</div>
       ) : (

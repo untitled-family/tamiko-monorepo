@@ -34,7 +34,7 @@ const Tamiko = () => {
 
         {!isNaN(intId) && (
           <>
-            <TamikoImage tokenId={intId} />
+            <TamikoImage tokenId={intId} hasHatched={hasHatched} />
             <Text fontSize='lg'>Tamiko: #{id}</Text>
             <TamikoInfo properties={properties} tokenId={intId} />
             <TamikoOwners metadata={metadata} tokenId={intId} />

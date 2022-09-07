@@ -69,7 +69,7 @@ contract Tamiko is ERC721A, Ownable {
     mapping(address => bool) public hasAddressMinted;
 
     /**
-     * @dev Tamiko contructor - Sets contract addresses.
+     * @notice Tamiko contructor - Sets contract addresses.
      * @param _tamikoRendererAddress Address of TamikoRenderer contract.
      * @param _tamikoStoreAddress Address of TamikoStore contract.
      * @param _tamikoStoreAddress Address of TamikoStore contract.
@@ -107,7 +107,7 @@ contract Tamiko is ERC721A, Ownable {
     error HasStartedHatching();
 
     /**
-     * @dev Checks if Tamiko exists
+     * @notice Checks if Tamiko exists
      * @param _tokenId Tamiko's token ID.
      */
     modifier isExistingTamiko(uint256 _tokenId) {
@@ -116,7 +116,7 @@ contract Tamiko is ERC721A, Ownable {
     }
 
     /**
-     * @dev Checks if caller is TamikoStore
+     * @notice Checks if caller is TamikoStore
      */
     modifier isFromTamikoStore() {
         if (msg.sender != tamikoStoreAddress)
@@ -125,7 +125,7 @@ contract Tamiko is ERC721A, Ownable {
     }
 
     /**
-     * @dev Checks if caller is TamikoLink
+     * @notice Checks if caller is TamikoLink
      */
     modifier isFromTamikoLink() {
         if (msg.sender != tamikoLinkAddress) revert NotFromTamikoLinkContract();
@@ -133,7 +133,7 @@ contract Tamiko is ERC721A, Ownable {
     }
 
     /**
-     * @dev Checks if caller has never minted before
+     * @notice Checks if caller has never minted before
      */
     modifier hasNeverMinted() {
         if (hasAddressMinted[msg.sender] == true) revert OnlyOneMintAllowed();
@@ -141,7 +141,7 @@ contract Tamiko is ERC721A, Ownable {
     }
 
     /**
-     * @dev Checks if we can still mint
+     * @notice Checks if we can still mint
      */
     modifier isUnderMaxSupply() {
         if (_totalMinted() + 1 > MAX_MINTABLE) revert ExceedingSupply();
@@ -149,7 +149,7 @@ contract Tamiko is ERC721A, Ownable {
     }
 
     /**
-     * @dev Checks if caller owns a specific tokenId
+     * @notice Checks if caller owns a specific tokenId
      * @param _tokenId Tamiko's token ID.
      */
     modifier isTokenOwner(uint256 _tokenId) {
@@ -158,7 +158,7 @@ contract Tamiko is ERC721A, Ownable {
     }
 
     /**
-     * @dev Checks if a specific Tamiko has not been hatched yet.
+     * @notice Checks if a specific Tamiko has not been hatched yet.
      * @param _tokenId Tamiko's token ID.
      */
     modifier hasNotHatched(uint256 _tokenId) {
@@ -167,7 +167,7 @@ contract Tamiko is ERC721A, Ownable {
     }
 
     /**
-     * @dev Updates TamikoStore address.
+     * @notice Updates TamikoStore address.
      * @param _tamikoStoreAddress Address of TamikoStore contract.
      */
     function setTamikoStore(address _tamikoStoreAddress) external onlyOwner {
@@ -176,7 +176,7 @@ contract Tamiko is ERC721A, Ownable {
     }
 
     /**
-     * @dev Pushes a new contract address into `itemContracts`
+     * @notice Pushes a new contract address into `itemContracts`
      * @param _contractAddress Address of the new item contract.
      */
     function addNewItemContract(address _contractAddress) external onlyOwner {
@@ -184,7 +184,7 @@ contract Tamiko is ERC721A, Ownable {
     }
 
     /**
-     * @dev Checks if a specific tamiko is dead
+     * @notice Checks if a specific tamiko is dead
      * @param _tokenId Tamiko's token ID.
      * @return bool
      */
@@ -199,7 +199,7 @@ contract Tamiko is ERC721A, Ownable {
     }
 
     /**
-     * @dev Checks if a specific tamiko is dead
+     * @notice Checks if a specific tamiko is dead
      * @param _tokenId Tamiko's token ID.
      * @param _itemId Item's index from `itemContracts` array
      * @param _quantity Quantity of Item being used
@@ -235,7 +235,7 @@ contract Tamiko is ERC721A, Ownable {
     }
 
     /**
-     * @dev Starts the hatching process of a specific Tamiko
+     * @notice Starts the hatching process of a specific Tamiko
      * @param _tokenId Tamiko's token ID.
      */
     function startHatchingProcess(uint256 _tokenId)
@@ -257,7 +257,7 @@ contract Tamiko is ERC721A, Ownable {
     }
 
     /**
-     * @dev Mints a Tamiko: It stores a seed and the breeder as well as airdrops 10 Food item to the sender
+     * @notice Mints a Tamiko: It stores a seed and the breeder as well as airdrops 10 Food item to the sender
      */
     function mint() external payable isUnderMaxSupply {
         uint256 _currentTokenId = _nextTokenId();
@@ -266,22 +266,39 @@ contract Tamiko is ERC721A, Ownable {
         hasAddressMinted[msg.sender] = true;
         tamikoStore.airdrop(10, 0, msg.sender);
 
-        tamikos[_currentTokenId].seed = uint256(
+        uint256 seed = uint256(
             keccak256(
                 abi.encodePacked(_currentTokenId, msg.sender, block.timestamp)
             )
         );
+
+        tamikos[_currentTokenId].seed = seed;
         tamikos[_currentTokenId].breeder = msg.sender;
 
-        skills[_currentTokenId].speed = 13;
-        skills[_currentTokenId].defense = 43;
-        skills[_currentTokenId].power = 69;
+        skills[_currentTokenId].speed = helpers.getRandomInteger(
+            "speed",
+            seed,
+            0,
+            70
+        );
+        skills[_currentTokenId].defense = helpers.getRandomInteger(
+            "defense",
+            seed,
+            0,
+            70
+        );
+        skills[_currentTokenId].power = helpers.getRandomInteger(
+            "power",
+            seed,
+            0,
+            70
+        );
 
         emit Mint(_currentTokenId);
     }
 
     /**
-     * @dev Airdrops a Tamiko to an address - This is used when breeding two Tamikos from TamikoLink
+     * @notice Airdrops a Tamiko to an address - This is used when breeding two Tamikos from TamikoLink
      * @param _address Recipient's address
      */
     function airdrop(address _address) public isFromTamikoLink {
@@ -297,7 +314,7 @@ contract Tamiko is ERC721A, Ownable {
     }
 
     /**
-     * @dev Returns a specific Tamiko's metadata
+     * @notice Returns a specific Tamiko's metadata
      * @param _tokenId Tamiko's token ID.
      * @return string JSON as base64
      */

@@ -12,10 +12,17 @@ export const PhoneWrap = ({ children }: Props) => {
   const textColor = useElement(700)
 
   return (
-    <Flex minH='100vh' flexDirection='column' alignItems='center' justifyContent='center' textTransform='uppercase'>
+    <Flex
+      minH='100vh'
+      flexDirection='column'
+      alignItems='center'
+      justifyContent='center'
+      textTransform='uppercase'
+    >
       <Flex
         textColor={textColor}
         bg={bgColor}
+        transition='background 0.69s'
         w='full'
         py={2}
         px={4}

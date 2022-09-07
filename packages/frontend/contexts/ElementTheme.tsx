@@ -2,9 +2,7 @@ import { Box } from "@chakra-ui/react";
 import { colors } from "@/utils/foundation/colors";
 import {
   createContext,
-  Dispatch,
   ReactNode,
-  SetStateAction,
   useState,
 } from "react";
 import { omit } from "lodash";

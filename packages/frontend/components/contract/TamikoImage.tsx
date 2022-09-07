@@ -2,7 +2,7 @@ import { useTamikoMetadata } from "@/hooks/useTamikoMetadata"
 import { Image } from "@chakra-ui/react"
 
 type Props = {
-  tokenId: number | string
+  tokenId: number
 }
 
 export default function TamikoImage({ tokenId }: Props) {

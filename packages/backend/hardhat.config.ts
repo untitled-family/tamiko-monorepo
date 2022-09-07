@@ -45,11 +45,11 @@ const config: HardhatUserConfig = {
     //   url: `https://rinkeby.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_ID}`,
     //   accounts: [`${process.env.PRIVATE_KEY}`],
     // },
-    // goerli: {
-    //   chainId: 5,
-    //   url: `https://eth-goerli.alchemyapi.io/v2/${process.env.NEXT_PUBLIC_ALCHEMY_ID}`,
-    //   accounts: [`${process.env.PRIVATE_KEY}`],
-    // },
+    goerli: {
+      chainId: 5,
+      url: `https://eth-goerli.alchemyapi.io/v2/${process.env.NEXT_PUBLIC_ALCHEMY_ID}`,
+      accounts: [`${process.env.PRIVATE_KEY}`],
+    },
     // kovan: {
     //   chainId: 42,
     //   url: `https://eth-kovan.alchemyapi.io/v2/${process.env.NEXT_PUBLIC_ALCHEMY_ID}`,

@@ -1,3 +1,4 @@
+import { TIMINGS } from "@/config";
 import { useElement } from "@/hooks";
 import { useContract } from "@/hooks/useContract"
 import { usePercentageCountdown } from "@/hooks/usePercentageCountdown";
@@ -5,7 +6,7 @@ import useSigner from "@/hooks/useSigner"
 import { Property } from "@/hooks/useTamikoMetadata"
 import { toastError } from "@/utils/error";
 import { Box } from "@chakra-ui/react";
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "../Button"
 
 type Props = {
@@ -21,11 +22,17 @@ export default function TamikoHatch({ properties, tokenId, onHatch }: Props) {
   const [signer] = useSigner()
   const tamikoContract = useContract('Tamiko', signer)
   const isHatching = parseInt(properties?.hatchStatus as string) === 1
-  const timer = usePercentageCountdown(
-    parseInt(properties?.hatchDate as string) * 1000,
-    100000,
-    () => { console.log('ended') }
+  const { timer, startTimer } = usePercentageCountdown(
+    (parseInt(properties?.hatchDate as string) * 1000),
+    TIMINGS.TIME_TO_HATCH,
+    onHatch
   )
+
+  useEffect(() => {
+    if (properties?.hatchDate && parseInt(properties?.hatchDate as string)) {
+      startTimer()
+    }
+  }, [properties?.hatchDate])
 
   const hatch = async () => {
     setLoading(true)
@@ -33,7 +40,6 @@ export default function TamikoHatch({ properties, tokenId, onHatch }: Props) {
     try {
       const tx = await tamikoContract.startHatchingProcess(tokenId)
       await tx.wait()
-
       onHatch()
       setLoading(false)
     } catch (e) {

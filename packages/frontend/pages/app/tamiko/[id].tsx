@@ -31,7 +31,6 @@ const Tamiko = () => {
   return (
     <AppLayout>
       <Box w='full'>
-
         {!isNaN(intId) && (
           <>
             <Image w='full' src={metadata?.image} alt={metadata?.name} />

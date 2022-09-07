@@ -1,8 +1,8 @@
 import { toastError } from "@/utils/error";
 import { attributesToObject, extractAttributes } from "@/utils/metadata";
 import { useEffect, useState } from "react"
+import { useProvider } from "wagmi";
 import { useContract } from "./useContract"
-import useSigner from "./useSigner"
 
 export type Metadata = {
   name: string;
@@ -22,14 +22,14 @@ export type Property = {
   lastFed: string
 }
 
-export const useTamikoMetadata = (tokenId: number | string) => {
-  const [signer] = useSigner()
+export const useTamikoMetadata = (tokenId: number) => {
+  const provider = useProvider()
   const [metadata, setMetadata] = useState<Metadata | null>(null)
   const [abilities, setAbilities] = useState<Attribute[] | null>([])
   const [properties, setProperties] = useState<Property | null>(null)
   const [isLoading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<any>(null)
-  const tamikoContract = useContract('Tamiko', signer)
+  const tamikoContract = useContract('Tamiko', provider)
 
   const getMetadata = async () => {
     setLoading(true)
@@ -53,12 +53,21 @@ export const useTamikoMetadata = (tokenId: number | string) => {
       toastError(e)
       setLoading(false)
       setError(e)
+      console.dir(e)
     }
   }
 
   useEffect(() => {
-    if (signer) getMetadata()
-  }, [signer])
+    if (provider && !isNaN(tokenId)) getMetadata()
+  }, [provider, tokenId])
+
+  useEffect(() => {
+    if (isNaN(tokenId)) {
+      setLoading(true)
+    } else {
+      setLoading(false)
+    }
+  }, [tokenId])
 
   return {
     metadata,

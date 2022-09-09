@@ -6,7 +6,6 @@ export const Switcher = () => {
   const [, setColor] = useElementTheme();
 
   const switchColor = (color: string) => {
-    // @ts-ignore
     setColor(color)
   }
 

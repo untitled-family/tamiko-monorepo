@@ -24,7 +24,6 @@ export const useRandomElement = (): (omitColors: string[]) => void => {
     const keys = Object.keys(omit(elements, omitColors))
     const random = keys[Math.floor(Math.random() * keys.length)]
 
-    // @ts-ignore
     setColor(random)
   }
 
@@ -40,6 +39,5 @@ export const useElement = (
 ): string => {
   const [color] = useElementTheme();
 
-  // @ts-ignore
   return colors[color][shade];
 };

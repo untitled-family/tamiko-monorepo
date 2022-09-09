@@ -18,7 +18,6 @@ export default function TamikoOwners({ metadata, tokenId }: Props) {
 
   const darker = useElement(700)
   const dark = useElement(600)
-  // @ts-ignore
   const hatcher = attributes[0].value
   const { data: hatcherEns } = useEnsName({ address: hatcher })
   const hatcherName = hatcherEns || trimAddress(hatcher)

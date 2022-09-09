@@ -16,24 +16,36 @@ export type Attribute = {
 }
 
 export type Property = {
-  hatchStatus: string,
-  level: string,
-  hatchDate: string,
-  lastFed: string
+  hatchStatus: string;
+  level: string;
+  hatchDate: string;
+  lastFed: string;
 }
 
-export const useTamikoMetadata = (tokenId: number) => {
+type TamikoMetadata = {
+  metadata: Metadata | null; // Raw metadata object returned by contract
+  abilities: Attribute[] | []; // Set of abilities attributes: speed, power and defense
+  properties: Property | null; // Set of variables that are not necessarily in metadata.attributes
+  refresh: () => void; // Method to re-fetch from contract
+  isLoading: boolean // true when fetching from the contract - default `false`
+}
+
+/**
+ * Fetch metadata of a specific Tamiko
+ * Metadata are split into categories (abilities, properties) to easily use info across specific sections
+ * @param tokenId Tamiko's tokenID
+ * @returns {TamikoMetadata} Object containing metadata in raw and clean format as well as refresh func to refetch
+ */
+export const useTamikoMetadata = (tokenId: number): TamikoMetadata => {
   const provider = useProvider()
   const [metadata, setMetadata] = useState<Metadata | null>(null)
-  const [abilities, setAbilities] = useState<Attribute[] | null>([])
+  const [abilities, setAbilities] = useState<Attribute[] | []>([])
   const [properties, setProperties] = useState<Property | null>(null)
   const [isLoading, setLoading] = useState<boolean>(false)
-  const [error, setError] = useState<any>(null)
   const tamikoContract = useContract('Tamiko', provider)
 
   const getMetadata = async () => {
     setLoading(true)
-    setError(null)
 
     try {
       const tokenURI = await tamikoContract.tokenURI(tokenId)
@@ -41,7 +53,7 @@ export const useTamikoMetadata = (tokenId: number) => {
       const base64 = tokenURI.replace('data:application/json;base64,', '');
       const string = atob(base64);
       const json = JSON.parse(string);
-      const abilities = extractAttributes(json.attributes, ['speed', 'power', 'defense'])
+      const abilities: (false | Attribute)[] = extractAttributes(json.attributes, ['speed', 'power', 'defense'])
 
       setMetadata(json)
       // @ts-ignore
@@ -52,7 +64,6 @@ export const useTamikoMetadata = (tokenId: number) => {
     } catch (e) {
       toastError(e)
       setLoading(false)
-      setError(e)
       console.dir(e)
     }
   }
@@ -74,7 +85,6 @@ export const useTamikoMetadata = (tokenId: number) => {
     abilities,
     properties,
     refresh: getMetadata,
-    isLoading,
-    error
+    isLoading
   }
 }

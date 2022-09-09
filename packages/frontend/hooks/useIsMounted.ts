@@ -1,6 +1,10 @@
 import * as React from 'react';
 
-export const useIsMounted = () => {
+/**
+ * Know if a component has mounted or not
+ * @returns true if it has mounted
+ */
+export const useIsMounted = (): boolean => {
   const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => setMounted(true), []);

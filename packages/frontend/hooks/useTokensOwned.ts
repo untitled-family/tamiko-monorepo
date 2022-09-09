@@ -1,17 +1,27 @@
+import { toastError } from "@/utils/error";
+import { Contract } from "ethers";
 import { useEffect, useState } from "react";
 import { useContract } from "./useContract";
-import useSigner from "./useSigner";
+import { useSigner } from "./useSigner";
 
-export const useTokensOwned = (address: string | undefined) => {
+type TokensOwned = {
+  tokens: number[];
+  isLoading: boolean;
+}
+
+/**
+ * Fetch tokenIds of owned by an address
+ * @param address 
+ * @returns Object containing an array of tokenIDs as well as loading status 
+ */
+export const useTokensOwned = (address: string | undefined): TokensOwned => {
   const [signer] = useSigner()
   const [tokens, setTokens] = useState<number[]>([])
   const [isLoading, setLoading] = useState<boolean>(false)
-  const [error, setError] = useState<any>(null)
-  const tamikoContract = useContract('Tamiko', signer)
+  const tamikoContract: Contract = useContract('Tamiko', signer)
 
   const getTokens = async () => {
     setLoading(true)
-    setError(null)
     const tokens: number[] = []
 
     try {
@@ -20,7 +30,7 @@ export const useTokensOwned = (address: string | undefined) => {
 
       if (!totalSupply) return tokens
 
-      for (let index = 0; index < totalSupply; index++) {
+      for (let index: number = 0; index < totalSupply; index++) {
         const ownerOf = await tamikoContract.ownerOf(index)
 
         if (ownerOf === address) {
@@ -32,8 +42,7 @@ export const useTokensOwned = (address: string | undefined) => {
       setLoading(false)
     } catch (e) {
       setLoading(false)
-      setError(e)
-      console.dir(e)
+      toastError(e)
     }
   }
 
@@ -43,7 +52,6 @@ export const useTokensOwned = (address: string | undefined) => {
 
   return {
     tokens,
-    isLoading,
-    error
+    isLoading
   }
 };

@@ -1,17 +1,26 @@
+import { toastError } from "@/utils/error";
 import { useEffect, useState } from "react";
+import { useProvider } from "wagmi";
 import { useContract } from "./useContract";
-import useSigner from "./useSigner";
 
-export const useOwner = (tokenId: number) => {
-  const [signer] = useSigner()
+type Owner = {
+  owner: string;
+  isLoading: boolean;
+}
+
+/**
+ * Fetch owner address of a specific tokenId
+ * @param tokenId Tamiko's tokenID 
+ * @returns Object containing the owner address and loading status
+ */
+export const useOwner = (tokenId: number): Owner => {
+  const provider = useProvider()
   const [owner, setOwner] = useState<string>('')
   const [isLoading, setLoading] = useState<boolean>(false)
-  const [error, setError] = useState<any>(null)
-  const tamikoContract = useContract('Tamiko', signer)
+  const tamikoContract = useContract('Tamiko', provider)
 
   const getOwner = async () => {
     setLoading(true)
-    setError(null)
 
     try {
       const o = await tamikoContract.ownerOf(tokenId)
@@ -20,18 +29,16 @@ export const useOwner = (tokenId: number) => {
       setLoading(false)
     } catch (e) {
       setLoading(false)
-      setError(e)
-      console.dir(e)
+      toastError(e)
     }
   }
 
   useEffect(() => {
-    if (signer) getOwner()
-  }, [signer])
+    if (provider) getOwner()
+  }, [provider])
 
   return {
     owner,
-    isLoading,
-    error
+    isLoading
   }
 };

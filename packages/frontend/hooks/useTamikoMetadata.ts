@@ -53,12 +53,10 @@ export const useTamikoMetadata = (tokenId: number): TamikoMetadata => {
       const base64 = tokenURI.replace('data:application/json;base64,', '');
       const string = atob(base64);
       const json = JSON.parse(string);
-      const abilities: (false | Attribute)[] = extractAttributes(json.attributes, ['speed', 'power', 'defense'])
+      const abilities: (Attribute)[] = extractAttributes(json.attributes, ['speed', 'power', 'defense'])
 
       setMetadata(json)
-      // @ts-ignore
       setAbilities(abilities)
-      // @ts-ignore
       setProperties(attributesToObject(json.properties))
       setLoading(false)
     } catch (e) {

@@ -13,7 +13,7 @@ import Idle from '@/components/svg/Idle';
 import { Text } from '@chakra-ui/react';
 import Connected from '@/components/svg/Connected';
 import { useEffect } from 'react';
-import { useElementTheme, useRandomElement } from '@/hooks/useElementTheme';
+import { useElementTheme, useRandomElement } from '@/hooks';
 
 export default function Home() {
   const [color] = useElementTheme()

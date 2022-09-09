@@ -1,15 +1,18 @@
+import { Signer, providers } from 'ethers';
 import React, { createContext, ReactNode, useContext, useState } from 'react'
 
 type Props = {
   children: ReactNode;
 };
 
-export interface IState {
-  signer: any;
+export type SignerType = Signer | providers.Provider | null | undefined
+
+export interface ProviderValue {
+  signer: SignerType;
   setSigner: (signer: any) => void;
 }
 
-const initialValue: IState = {
+const initialValue: ProviderValue = {
   signer: null,
   setSigner: () => { },
 };

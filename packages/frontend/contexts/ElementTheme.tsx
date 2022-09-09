@@ -3,6 +3,7 @@ import { colors } from "@/utils/foundation/colors";
 import {
   createContext,
   ReactNode,
+  useContext,
   useState,
 } from "react";
 import { omit } from "lodash";
@@ -11,22 +12,22 @@ type Props = {
   children: ReactNode;
 };
 
-export interface IState {
+export interface ElementThemeValues {
   color: string;
   setColor: (color: string) => void;
 }
 
-const initialValue: IState = {
+const initialValue: ElementThemeValues = {
   color: "neutral",
   setColor: () => { },
 };
 
-export const ElementTheme = createContext(initialValue);
+const ElementTheme = createContext(initialValue);
 
 export const elements = omit(colors, ['white', 'black'])
 
 const ElementThemeProvider = ({ children }: Props) => {
-  const [color, setColor] = useState("neutral");
+  const [color, setColor] = useState<string>("neutral");
 
   return (
     <ElementTheme.Provider
@@ -41,3 +42,7 @@ const ElementThemeProvider = ({ children }: Props) => {
 };
 
 export default ElementThemeProvider;
+
+export const useElementThemeContext = () => {
+  return useContext(ElementTheme);
+}

@@ -1,8 +1,7 @@
 import { TIMINGS } from "@/config";
 import { useElement } from "@/hooks";
 import { useContract } from "@/hooks/useContract"
-import { usePercentageCountdown } from "@/hooks/usePercentageCountdown";
-import useSigner from "@/hooks/useSigner"
+import { usePercentageCountdown, useSigner } from "@/hooks";
 import { Property } from "@/hooks/useTamikoMetadata"
 import { toastError } from "@/utils/error";
 import { Box } from "@chakra-ui/react";

@@ -1,5 +1,4 @@
-import { useElement } from "@/hooks";
-import { useOwner } from "@/hooks/useOwner";
+import { useElement, useOwner } from "@/hooks";
 import { Metadata, Attribute } from "@/hooks/useTamikoMetadata";
 import { trimAddress } from "@/utils/address";
 import { extractAttributes } from "@/utils/metadata";

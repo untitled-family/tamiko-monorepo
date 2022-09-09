@@ -1,16 +1,27 @@
-type Attribute = {
-  trait_type: string;
-  value: string;
-}
+import { Property, Attribute } from "@/hooks/useTamikoMetadata";
 
-export const extractAttributes = (attributes: Attribute[], traits: string[]) => {
+/**
+ * Fetch tokenIds of owned by an address
+ * @param attributes array of all attributes to look through
+ * @param traits array of traits to be extracted
+ * @returns Array of Attributes 
+ */
+export const extractAttributes = (attributes: Attribute[], traits: string[]): Attribute[] => {
   if (!attributes) return []
 
-  const filtered = attributes.map(attr => traits.includes(attr.trait_type) && attr)
+  const attrs = attributes.map(attr => traits.includes(attr.trait_type) && attr);
+  const filtered = attrs.filter(Boolean) as Attribute[];
 
-  return filtered.filter(o => o !== false ? o : null)
+  return filtered;
 }
 
-export const attributesToObject = (properties: Attribute[]) => {
-  return properties.reduce((obj, item) => Object.assign(obj, { [item.trait_type]: item.value }), {});
+/**
+ * Fetch tokenIds of owned by an address
+ * @param properties array of all attributes to convert to object
+ * @returns Object of Property
+ */
+export const attributesToObject = (properties: Attribute[]): Property => {
+  const propertiesObject = properties.reduce((obj, item) => Object.assign(obj, { [item.trait_type]: item.value }), {}) as Property
+
+  return propertiesObject;
 }

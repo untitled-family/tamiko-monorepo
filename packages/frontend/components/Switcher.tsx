@@ -1,6 +1,6 @@
 import { colors } from "@/utils/foundation/colors";
 import { Box } from "@chakra-ui/react";
-import { useElementTheme } from "../hooks/useElementTheme";
+import { useElementTheme } from "@/hooks";
 
 export const Switcher = () => {
   const [, setColor] = useElementTheme();

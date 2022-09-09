@@ -1,6 +1,17 @@
 import { useEffect, useState } from "react"
 
-export const usePercentageCountdown = (startTimestamp: number, timeToEnd: number, onComplete?: () => void) => {
+type PercentageCountdown = {
+  timer: number,
+  startTimer: () => void
+}
+
+/**
+ * Get countdown every second from a starting timestamp to startTimestamp + timeToEnd
+ * @param startTimestamp starting timestamp
+ * @param timeToEnd how many millisecond until the end
+ * @returns Object containing the percentage left on the clock as well as `startTimer` method to start countdown
+ */
+export const usePercentageCountdown = (startTimestamp: number, timeToEnd: number, onComplete?: () => void): PercentageCountdown => {
   const [started, setStart] = useState<boolean>(false)
   const [percentageLeft, setPercentageLeft] = useState<number>(0)
   const endDate = new Date(startTimestamp + timeToEnd)

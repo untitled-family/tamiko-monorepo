@@ -1,7 +1,7 @@
 import { Flex } from "@chakra-ui/react";
 import { ReactNode } from "react";
 
-import { useElement } from "../hooks/useElementTheme";
+import { useElement } from "@/hooks";
 
 type Props = {
   children: ReactNode;

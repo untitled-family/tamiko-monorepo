@@ -1,4 +1,4 @@
-import useSigner from "@/hooks/useSigner";
+import { useSigner } from "@/hooks";
 import { useSigner as useWagmiSigner } from "wagmi";
 import { Box, Flex } from "@chakra-ui/react";
 import {

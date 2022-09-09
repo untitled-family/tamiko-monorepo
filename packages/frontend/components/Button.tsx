@@ -2,8 +2,7 @@ import { Box, Button as ChakraButton } from "@chakra-ui/react";
 import { ReactNode } from "react";
 import { omit } from 'lodash'
 import { transparentize } from "polished";
-
-import { useElement } from "../hooks/useElementTheme";
+import { useElement } from "@/hooks";
 
 type Props = {
   children: ReactNode;

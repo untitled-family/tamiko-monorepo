@@ -8,12 +8,9 @@ import Connected from '@/components/svg/Connected';
 import { Footer } from '@/components/Footer';
 import { Button } from '@/components/Button';
 import EggPicker from '@/components/EggPicker';
-import { useRouter } from 'next/router'
-import { useContract } from '@/hooks/useContract';
+import { useRouter } from 'next/router';
 import EggLoader from '@/components/svg/EggLoader';
-import toast from 'react-hot-toast';
-import { useElementTheme } from '@/hooks';
-import { useRandomElement } from '@/hooks/useElementTheme';
+import { useElementTheme, useRandomElement, useContract } from '@/hooks';
 import { toastError } from '@/utils/error';
 
 interface Step {

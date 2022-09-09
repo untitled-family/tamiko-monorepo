@@ -62,7 +62,6 @@ export const useTamikoMetadata = (tokenId: number): TamikoMetadata => {
     } catch (e) {
       toastError(e)
       setLoading(false)
-      console.dir(e)
     }
   }
 

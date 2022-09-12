@@ -36,7 +36,7 @@ const Skeleton = () => {
   )
 }
 
-export default function TamikoOwners({ metadata, tokenId, isLoading }: Props) {
+export const TamikoOwners = ({ metadata, tokenId, isLoading }: Props) => {
   const attributes = extractAttributes(metadata?.attributes as Attribute[], ['hatcher'])
   const hasAttributes = attributes.length
 

@@ -2,9 +2,9 @@ import { useTokensOwned } from "@/hooks";
 import { Box, SimpleGrid } from "@chakra-ui/react";
 import { useAccount } from "wagmi";
 import AppIcon from "../AppIcon";
-import TamikoImage from "./TamikoImage";
+import { TamikoImage } from "./TamikoImage";
 
-export default function GetTamikos() {
+export const GetTamikos = () => {
   const { address } = useAccount()
   const { tokens, isLoading } = useTokensOwned(address)
 
@@ -31,6 +31,5 @@ export default function GetTamikos() {
         </>
       )}
     </Box>
-
   )
 }

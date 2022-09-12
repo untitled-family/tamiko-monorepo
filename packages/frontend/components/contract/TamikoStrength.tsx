@@ -6,7 +6,7 @@ type Props = {
   abilities: Attribute[] | null
 }
 
-export default function TamikoStrength({ abilities }: Props) {
+export const TamikoStrength = ({ abilities }: Props) => {
   const light = useElement(400)
   const normal = useElement(600)
 

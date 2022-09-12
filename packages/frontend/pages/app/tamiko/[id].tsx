@@ -1,10 +1,7 @@
 import AppLayout from '@/components/AppLayout'
-import TamikoHatch from '@/components/contract/TamikoHatch'
-import TamikoInfo from '@/components/contract/TamikoInfo'
-import TamikoOwners from '@/components/contract/TamikoOwners'
-import TamikoStrength from '@/components/contract/TamikoStrength'
+import { TamikoStrength, TamikoOwners, TamikoHatch, TamikoInfo, TamikoName } from '@/components/contract'
 import { useElementTheme, useTamikoMetadata } from '@/hooks'
-import { Box, Image, Text } from '@chakra-ui/react'
+import { AspectRatio, Box, Image, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
@@ -13,8 +10,11 @@ const Tamiko = () => {
   const { id } = router.query
   const [, setColor] = useElementTheme()
   const intId = parseInt(id as string, 10)
-  const { properties, abilities, metadata, refresh } = useTamikoMetadata(intId)
+  const { properties, abilities, metadata, isLoading, refresh } = useTamikoMetadata(intId)
   const hasHatched = parseInt(properties?.hatchStatus as string) >= 2
+
+  console.log('intId', intId)
+  console.log('isLoading', isLoading)
 
   useEffect(() => {
     if (!hasHatched) {
@@ -26,13 +26,37 @@ const Tamiko = () => {
 
   return (
     <AppLayout>
-      <Box w='full'>
+      <Box w='full' alignSelf='flex-start'>
         {!isNaN(intId) && (
           <>
-            <Image w='full' src={metadata?.image} alt={metadata?.name} />
-            <Text fontSize='lg'>Tamiko: #{id}</Text>
-            <TamikoInfo properties={properties} tokenId={intId} />
-            <TamikoOwners metadata={metadata} tokenId={intId} />
+            <AspectRatio ratio={1}>
+              <Image w='full' src={metadata?.image} alt={metadata?.name} />
+            </AspectRatio>
+          </>
+        )}
+
+        <TamikoName
+          tokenId={intId}
+          isLoading={isLoading}
+          w='140px'
+          mx='auto'
+          my='5px'
+          h='20px'
+        />
+
+        <TamikoInfo
+          properties={properties}
+          tokenId={intId}
+          isLoading={isLoading}
+          w='full'
+          my={6}
+          h='29px' />
+
+        <TamikoOwners isLoading={isLoading} metadata={metadata} tokenId={intId} />
+
+        {!isNaN(intId) && !isLoading && (
+          <>
+            {/* <TamikoOwners metadata={metadata} tokenId={intId} /> */}
             {hasHatched && (
               <TamikoStrength abilities={abilities} />
             )}

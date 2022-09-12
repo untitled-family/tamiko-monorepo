@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import AppLayout from '@/components/AppLayout';
-import GetTamikos from '@/components/contract/GetTamikos';
+import { GetTamikos } from '@/components/contract';
 
 export default function App() {
   return (

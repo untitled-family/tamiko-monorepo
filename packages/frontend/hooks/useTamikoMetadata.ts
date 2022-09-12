@@ -72,8 +72,6 @@ export const useTamikoMetadata = (tokenId: number): TamikoMetadata => {
   useEffect(() => {
     if (isNaN(tokenId)) {
       setLoading(true)
-    } else {
-      setLoading(false)
     }
   }, [tokenId])
 

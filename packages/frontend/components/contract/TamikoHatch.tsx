@@ -14,7 +14,7 @@ type Props = {
   onHatch: () => void
 }
 
-export default function TamikoHatch({ properties, tokenId, onHatch }: Props) {
+export const TamikoHatch = ({ properties, tokenId, onHatch }: Props) => {
   const light = useElement(400)
   const normal = useElement(600)
   const [isLoading, setLoading] = useState<boolean>(false)

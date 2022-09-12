@@ -6,7 +6,7 @@ type Props = {
   hasHatched?: boolean
 }
 
-export default function TamikoImage({ tokenId, hasHatched }: Props) {
+export const TamikoImage = ({ tokenId, hasHatched }: Props) => {
   const { metadata } = useTamikoMetadata(tokenId)
 
   if (metadata) {

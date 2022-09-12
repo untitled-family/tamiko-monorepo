@@ -1,3 +1,4 @@
+import { withSkeleton } from "@/hoc";
 import { useElement } from "@/hooks";
 import { Property } from "@/hooks/useTamikoMetadata";
 import { Box, Flex } from "@chakra-ui/react";
@@ -54,7 +55,7 @@ const CustomBox = ({ children, isPrimary = false }: CustomBoxProps) => {
   )
 }
 
-export default function TamikoInfo({ properties, tokenId }: Props) {
+const TamikoInfoComponent = ({ properties, tokenId }: Props) => {
   const hasHatched = parseInt(properties?.hatchStatus as string) >= 2
   const type = hasHatched ? 'bug' : 'unknown'
   const level = hasHatched ? `lvl ${properties?.level}` : 'egg'
@@ -69,6 +70,7 @@ export default function TamikoInfo({ properties, tokenId }: Props) {
         </>
       )}
     </Flex>
-
   )
 }
+
+export const TamikoInfo = withSkeleton(TamikoInfoComponent);

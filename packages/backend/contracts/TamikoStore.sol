@@ -5,7 +5,7 @@ pragma solidity ^0.8.14;
 // Description: Add, Buy and Send items to use on Tamiko
 // Twitter: @hellotamiko
 // Design: biron.eth
-// Build: himlate.eth
+// Build: bonhomme.eth
 
 import "hardhat/console.sol";
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";

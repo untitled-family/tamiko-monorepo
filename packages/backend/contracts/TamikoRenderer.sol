@@ -5,7 +5,7 @@ pragma solidity ^0.8.14;
 // Description: Generate metadata based on Tamiko struct
 // Twitter: @hellotamiko
 // Design: biron.eth
-// Build: himlate.eth
+// Build: bonhomme.eth
 
 import "hardhat/console.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";

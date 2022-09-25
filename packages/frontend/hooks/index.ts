@@ -6,3 +6,4 @@ export { usePercentageCountdown } from './usePercentageCountdown';
 export { useSigner } from './useSigner';
 export { useTamikoMetadata } from './useTamikoMetadata';
 export { useTokensOwned } from './useTokensOwned';
+export { useContractWrite } from './useContractWrite';

@@ -1,5 +1,6 @@
 import { useTamikoStoreItems } from "@/hooks/useTamikoStoreItems"
 import { Box, Flex, SimpleGrid, Text } from "@chakra-ui/react"
+import { TamikoStoreItem } from "./TamikoStoreItem"
 
 export const GetTamikoItems = () => {
   const { items, isLoading } = useTamikoStoreItems()
@@ -11,10 +12,7 @@ export const GetTamikoItems = () => {
       ) : (
         <>
           {items.map(item => (
-            <Flex justifyContent='space-between' key={item.id}>
-              <Text>{item.name}</Text>
-              <Text>Price: {item.price}</Text>
-            </Flex>
+            <TamikoStoreItem key={item.id} item={item} />
           ))}
         </>
       )}

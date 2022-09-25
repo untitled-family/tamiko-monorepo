@@ -1,4 +1,5 @@
 import { Property, Attribute } from "@/hooks/useTamikoMetadata";
+import { Item } from "@/hooks/useTamikoStoreItems";
 import { BigNumber } from "ethers";
 
 /**
@@ -29,16 +30,9 @@ export const attributesToObject = (properties: Attribute[]): Property => {
 
 /**
  * Transform an array of Item values into an object of Item key values
- * @param 
+ * @param array array of properties
+ * @returns Object of Item
  */
-export type Item = {
-  id: number;
-  name: string;
-  description: string;
-  svg: string,
-  price: number;
-  creator: string;
-}
 type ItemTypes = number | string | BigNumber
 
 export const extractItemProperties = (array: ItemTypes[]): Item => {

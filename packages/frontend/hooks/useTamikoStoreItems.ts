@@ -1,5 +1,5 @@
 import { toastError } from "@/utils/error"
-import { extractItemProperties, Item } from "@/utils/metadata"
+import { extractItemProperties } from "@/utils/metadata"
 import { useEffect, useState } from "react"
 import { useProvider } from "wagmi"
 import { useContract } from "./useContract"
@@ -9,6 +9,15 @@ type TamikoStoreItems = {
   items: Item[] | []; // array of items
   refresh: () => void // Method to re-fetch from contract
   isLoading: boolean // true when fetching from the contract - default `false`
+}
+
+export type Item = {
+  id: number;
+  name: string;
+  description: string;
+  svg: string,
+  price: number;
+  creator: string;
 }
 
 export const useTamikoStoreItems = (): TamikoStoreItems => {
@@ -25,14 +34,13 @@ export const useTamikoStoreItems = (): TamikoStoreItems => {
       const total = await tamikoStoreContract.totalItems()
       const totalNumber = total.toNumber()
       setTotalItems(totalNumber)
+      const _items = []
 
       if (!totalNumber) return {
         totalItems: 0,
         items: [],
         isLoading: false,
       }
-
-      const _items = []
 
       for (let index = 0; index < totalNumber; index++) {
         const item = await tamikoStoreContract.items(index)

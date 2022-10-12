@@ -13,7 +13,7 @@ export const PhoneWrap = ({ children }: Props) => {
 
   return (
     <Flex
-      minH="100vh"
+      minH="100svh"
       flexDirection="column"
       alignItems="center"
       justifyContent="center"

@@ -29,7 +29,7 @@ export const PhoneWrap = ({ children }: Props) => {
         flexDirection="column"
         maxW={375}
         maxH={812}
-        h="100vh"
+        h="100svh"
         overflowY="auto"
       >
         {children}

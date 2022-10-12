@@ -1,5 +1,5 @@
-import Head from 'next/head';
-import AppLayout from '@/components/AppLayout';
+import Head from "next/head"
+import AppLayout from "@/components/AppLayout"
 
 export default function Link() {
   return (
@@ -7,9 +7,7 @@ export default function Link() {
       <Head>
         <title>Tamiko - Link</title>
       </Head>
-      <AppLayout>
-        This is the link
-      </AppLayout>
+      <AppLayout>This is the link</AppLayout>
     </>
-  );
+  )
 }

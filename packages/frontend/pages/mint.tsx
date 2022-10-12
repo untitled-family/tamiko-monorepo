@@ -1,73 +1,82 @@
-import Head from 'next/head';
-import { Main } from '@/components/Main';
-import { Box, Text } from '@chakra-ui/react';
-import { useAccount, useEnsName, useSigner } from "wagmi";
-import { useEffect, useState } from 'react';
-import { trimAddress } from '@/utils/address';
-import Connected from '@/components/svg/Connected';
-import { Footer } from '@/components/Footer';
-import { Button } from '@/components/Button';
-import EggPicker from '@/components/EggPicker';
-import { useRouter } from 'next/router';
-import EggLoader from '@/components/svg/EggLoader';
-import { useElementTheme, useRandomElement, useContract } from '@/hooks';
-import { toastError } from '@/utils/error';
+import Head from "next/head"
+import { Main } from "@/components/Main"
+import { Box, Text } from "@chakra-ui/react"
+import { useAccount, useEnsName, useSigner } from "wagmi"
+import { useEffect, useState } from "react"
+import { trimAddress } from "@/utils/address"
+import Connected from "@/components/svg/Connected"
+import { Footer } from "@/components/Footer"
+import { Button } from "@/components/Button"
+import EggPicker from "@/components/EggPicker"
+import { useRouter } from "next/router"
+import EggLoader from "@/components/svg/EggLoader"
+import { useElementTheme, useRandomElement, useContract } from "@/hooks"
+import { toastError } from "@/utils/error"
 
 interface Step {
-  copy: Array<string>,
-  button: string | null,
-  buttonFn: string,
+  copy: Array<string>
+  button: string | null
+  buttonFn: string
   buttonDisabled?: boolean
 }
 
 interface FnMap {
-  mint: () => void,
-  increment: () => void,
+  mint: () => void
+  increment: () => void
   hatch: () => void
 }
 
-type FnMapKeys = keyof FnMap;
+type FnMapKeys = keyof FnMap
 
 const steps: Step[] = [
   {
     copy: [
-      'Say hello to Tamiko!',
-      'Tamiko is a non-fungible friend that lives completely on - chain.'
+      "Say hello to Tamiko!",
+      "Tamiko is a non-fungible friend that lives completely on - chain.",
     ],
-    button: 'Next',
-    buttonFn: 'increment'
+    button: "Next",
+    buttonFn: "increment",
   },
   {
-    copy: ['Tamiko recently laid some eggs and is looking for new parents to take care of them.', 'Do you want one?'],
-    button: 'Yes please',
-    buttonFn: 'increment'
+    copy: [
+      "Tamiko recently laid some eggs and is looking for new parents to take care of them.",
+      "Do you want one?",
+    ],
+    button: "Yes please",
+    buttonFn: "increment",
   },
   {
-    copy: ['Choose your Tamiko Egg.', 'You can have it for free, just take good care of it.'],
-    button: 'Mint',
+    copy: [
+      "Choose your Tamiko Egg.",
+      "You can have it for free, just take good care of it.",
+    ],
+    button: "Mint",
     buttonDisabled: true,
-    buttonFn: 'null'
+    buttonFn: "null",
   },
   {
-    copy: ['Choose your Tamiko Egg.', 'You can have it for free, just take good care of it.'],
-    button: 'Mint',
-    buttonFn: 'mint',
+    copy: [
+      "Choose your Tamiko Egg.",
+      "You can have it for free, just take good care of it.",
+    ],
+    button: "Mint",
+    buttonFn: "mint",
   },
   {
-    copy: ['Confirm in your wallet'],
+    copy: ["Confirm in your wallet"],
     button: null,
-    buttonFn: 'null',
+    buttonFn: "null",
   },
   {
-    copy: ['Minting your tamkio egg. This can take a couple of minutes...'],
+    copy: ["Minting your tamkio egg. This can take a couple of minutes..."],
     button: null,
-    buttonFn: 'null'
+    buttonFn: "null",
   },
   {
-    copy: ['Congratulations!'],
-    button: 'Hatch your Tamiko',
-    buttonFn: 'hatch'
-  }
+    copy: ["Congratulations!"],
+    button: "Hatch your Tamiko",
+    buttonFn: "hatch",
+  },
 ]
 
 export default function Mint() {
@@ -77,12 +86,12 @@ export default function Mint() {
   const [mintedId, setMintedId] = useState<number>(0)
   const { address } = useAccount()
   const setRandomColor = useRandomElement()
-  const trimedAddress = address ? trimAddress(address) : ''
+  const trimedAddress = address ? trimAddress(address) : ""
   const { data: ensName } = useEnsName({
     address,
   })
   const { data: signer } = useSigner()
-  const tamikoContract = useContract('Tamiko', signer)
+  const tamikoContract = useContract("Tamiko", signer)
 
   const introP = `Hey ${ensName || trimedAddress}`
   const successP = `You’re now the proud parent of tamiko ${mintedId}.`
@@ -98,7 +107,7 @@ export default function Mint() {
       const tx = await tamikoContract.mint()
       setStep(5)
       const receipt = await tx.wait()
-      const event = receipt.events.find((e: { event: string }) => e.event === 'Mint')
+      const event = receipt.events.find((e: { event: string }) => e.event === "Mint")
       const tokenId = event.args._tokenId.toNumber()
 
       setStep(6)
@@ -118,7 +127,7 @@ export default function Mint() {
   const fnMap: FnMap = {
     increment,
     mint,
-    hatch
+    hatch,
   }
 
   const handleEggSelect = () => {
@@ -126,14 +135,14 @@ export default function Mint() {
   }
 
   useEffect(() => {
-    if (color === 'neutral') {
-      setRandomColor(['neutral'])
+    if (color === "neutral") {
+      setRandomColor(["neutral"])
     }
   }, [])
 
   if (!address) {
-    router.push('/')
-    return false;
+    router.push("/")
+    return false
   }
 
   return (
@@ -144,32 +153,31 @@ export default function Mint() {
       <Main>
         <div>
           <Box mb={8}>
-            {(step === 0 || step === 1) && (
-              <Connected />
-            )}
-            {(step === 2 || step === 3) && (
-              <EggPicker onSelect={handleEggSelect} />
-            )}
-            {(step === 4 || step === 5 || step === 6) && (
-              <EggLoader />
-            )}
+            {(step === 0 || step === 1) && <Connected />}
+            {(step === 2 || step === 3) && <EggPicker onSelect={handleEggSelect} />}
+            {(step === 4 || step === 5 || step === 6) && <EggLoader />}
           </Box>
-          {step === 0 && (<Text>{introP}</Text>)}
-          {steps[step].copy.map(p => {
+          {step === 0 && <Text>{introP}</Text>}
+          {steps[step].copy.map((p) => {
             return (
-              <Text lineHeight='20px' mb={2} key={p}>{p}</Text>
+              <Text lineHeight="20px" mb={2} key={p}>
+                {p}
+              </Text>
             )
           })}
-          {step === 6 && (
-            <Text lineHeight='20px'>{successP}</Text>
-          )}
+          {step === 6 && <Text lineHeight="20px">{successP}</Text>}
         </div>
       </Main>
       <Footer>
         {steps[step].button && (
-          <Button disabled={steps[step].buttonDisabled} onClick={fnMap[steps[step].buttonFn as FnMapKeys]}>{steps[step].button}</Button>
+          <Button
+            disabled={steps[step].buttonDisabled}
+            onClick={fnMap[steps[step].buttonFn as FnMapKeys]}
+          >
+            {steps[step].button}
+          </Button>
         )}
       </Footer>
     </>
-  );
+  )
 }

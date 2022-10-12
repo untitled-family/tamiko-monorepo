@@ -1,16 +1,16 @@
-import { TIMINGS } from "@/config";
-import { useElement } from "@/hooks";
+import { TIMINGS } from "@/config"
+import { useElement } from "@/hooks"
 import { useContract } from "@/hooks/useContract"
-import { usePercentageCountdown, useSigner } from "@/hooks";
-import { Property } from "@/hooks/useTamikoMetadata"
-import { toastError } from "@/utils/error";
-import { Box } from "@chakra-ui/react";
+import { usePercentageCountdown, useSigner } from "@/hooks"
+import { toastError } from "@/utils/error"
+import { Box } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import { Button } from "../Button"
+import { TamikoProperties } from "@/types/metadata"
 
 type Props = {
   tokenId: number
-  properties: Property | null,
+  properties: TamikoProperties | null
   onHatch: () => void
 }
 
@@ -19,10 +19,10 @@ export const TamikoHatch = ({ properties, tokenId, onHatch }: Props) => {
   const normal = useElement(600)
   const [isLoading, setLoading] = useState<boolean>(false)
   const [signer] = useSigner()
-  const tamikoContract = useContract('Tamiko', signer)
+  const tamikoContract = useContract("Tamiko", signer)
   const isHatching = parseInt(properties?.hatchStatus as string) === 1
   const { timer, startTimer } = usePercentageCountdown(
-    (parseInt(properties?.hatchDate as string) * 1000),
+    parseInt(properties?.hatchDate as string) * 1000,
     TIMINGS.TIME_TO_HATCH,
     onHatch
   )
@@ -49,10 +49,19 @@ export const TamikoHatch = ({ properties, tokenId, onHatch }: Props) => {
 
   return (
     <Box my={6}>
-      <Box mb={2} position='relative' w='full' h='6px' bg={light}>
-        <Box w={`${timer}%`} height='full' position='absolute' top={0} left={0} bg={normal} />
+      <Box mb={2} position="relative" w="full" h="6px" bg={light}>
+        <Box
+          w={`${timer}%`}
+          height="full"
+          position="absolute"
+          top={0}
+          left={0}
+          bg={normal}
+        />
       </Box>
-      <Button onClick={hatch} isLoading={isLoading || isHatching} disabled={isHatching}>Begin hatching</Button>
+      <Button onClick={hatch} isLoading={isLoading || isHatching} disabled={isHatching}>
+        Begin hatching
+      </Button>
     </Box>
   )
 }

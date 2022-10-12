@@ -1,17 +1,17 @@
-import { withSkeleton } from "@/hoc";
-import { useElement } from "@/hooks";
-import { Property } from "@/hooks/useTamikoMetadata";
-import { Box, Flex } from "@chakra-ui/react";
-import { omit } from "lodash";
-import { transparentize } from "polished";
+import { withSkeleton } from "@/hoc"
+import { useElement } from "@/hooks"
+import { TamikoProperties } from "@/types/metadata"
+import { Box, Flex } from "@chakra-ui/react"
+import { omit } from "lodash"
+import { transparentize } from "polished"
 
 type Props = {
-  tokenId: number,
-  properties: Property | null
+  tokenId: number
+  properties: TamikoProperties | null
 }
 
 type CustomBoxProps = {
-  children: any,
+  children: any
   isPrimary?: boolean
 }
 
@@ -19,8 +19,8 @@ const corners = [
   { id: 0, top: 0, left: 0 },
   { id: 1, top: 0, right: 0 },
   { id: 2, bottom: 0, left: 0 },
-  { id: 3, bottom: 0, right: 0 }
-];
+  { id: 3, bottom: 0, right: 0 },
+]
 
 const CustomBox = ({ children, isPrimary = false }: CustomBoxProps) => {
   const cornerColor = useElement()
@@ -30,24 +30,24 @@ const CustomBox = ({ children, isPrimary = false }: CustomBoxProps) => {
     <Box
       px={4}
       py={1}
-      position='relative'
+      position="relative"
       bg={isPrimary ? dark : transparentize(0.5, dark)}
-      textColor='white'
+      textColor="white"
       flex={isPrimary ? 2.5 : 1}
       mx={isPrimary ? 3 : 0}
-      fontSize='sm'
+      fontSize="sm"
     >
       {corners.map((corner) => (
         <Box
           key={corner.id}
-          as='span'
-          w='full'
-          h='full'
-          position='absolute'
+          as="span"
+          w="full"
+          h="full"
+          position="absolute"
           bg={cornerColor}
-          width='4px'
-          height='4px'
-          {...omit(corner, ['id'])}
+          width="4px"
+          height="4px"
+          {...omit(corner, ["id"])}
         />
       ))}
       {children}
@@ -57,8 +57,8 @@ const CustomBox = ({ children, isPrimary = false }: CustomBoxProps) => {
 
 const TamikoInfoComponent = ({ properties, tokenId }: Props) => {
   const hasHatched = parseInt(properties?.hatchStatus as string) >= 2
-  const type = hasHatched ? 'bug' : 'unknown'
-  const level = hasHatched ? `lvl ${properties?.level}` : 'egg'
+  const type = hasHatched ? "bug" : "unknown"
+  const level = hasHatched ? `lvl ${properties?.level}` : "egg"
 
   return (
     <Flex my={6}>
@@ -73,4 +73,4 @@ const TamikoInfoComponent = ({ properties, tokenId }: Props) => {
   )
 }
 
-export const TamikoInfo = withSkeleton(TamikoInfoComponent);
+export const TamikoInfo = withSkeleton(TamikoInfoComponent)

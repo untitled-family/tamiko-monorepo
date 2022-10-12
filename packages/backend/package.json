@@ -20,16 +20,13 @@
     "@types/mocha": "^9.1.1",
     "@types/node": "^18.0.0",
     "chai": "^4.3.6",
+    "dotenv": "^16.0.0",
+    "erc721a": "^4.2.2",
     "ethereum-waffle": "^3.4.4",
     "ethers": "^5.6.9",
     "hardhat": "^2.9.9",
     "hardhat-deploy": "^0.11.10",
     "ts-node": "^10.8.1",
     "typescript": "^4.7.4"
-  },
-  "dependencies": {
-    "@openzeppelin/contracts": "^4.7.3",
-    "dotenv": "^16.0.0",
-    "erc721a": "^4.2.2"
   }
 }

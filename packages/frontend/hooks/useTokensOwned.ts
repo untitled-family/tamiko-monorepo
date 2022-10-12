@@ -1,24 +1,24 @@
-import { toastError } from "@/utils/error";
-import { Contract } from "ethers";
-import { useEffect, useState } from "react";
-import { useContract } from "./useContract";
-import { useSigner } from "./useSigner";
+import { toastError } from "@/utils/error"
+import { Contract } from "ethers"
+import { useEffect, useState } from "react"
+import { useContract } from "./useContract"
+import { useSigner } from "./useSigner"
 
-type TokensOwned = {
-  tokens: number[];
-  isLoading: boolean;
+interface TokensOwned {
+  tokens: number[]
+  isLoading: boolean
 }
 
 /**
  * Fetch tokenIds of owned by an address
- * @param address 
- * @returns Object containing an array of tokenIDs as well as loading status 
+ * @param address
+ * @returns Object containing an array of tokenIDs as well as loading status
  */
 export const useTokensOwned = (address: string | undefined): TokensOwned => {
   const [signer] = useSigner()
   const [tokens, setTokens] = useState<number[]>([])
   const [isLoading, setLoading] = useState<boolean>(false)
-  const tamikoContract: Contract = useContract('Tamiko', signer)
+  const tamikoContract: Contract = useContract("Tamiko", signer)
 
   const getTokens = async () => {
     setLoading(true)
@@ -52,6 +52,6 @@ export const useTokensOwned = (address: string | undefined): TokensOwned => {
 
   return {
     tokens,
-    isLoading
+    isLoading,
   }
-};
+}

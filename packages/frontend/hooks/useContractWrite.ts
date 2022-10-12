@@ -1,7 +1,7 @@
-import { useContractWrite as wagmiUseContractWrite, usePrepareContractWrite } from 'wagmi';
+import { useContractWrite as wagmiUseContractWrite, usePrepareContractWrite } from "wagmi"
 
-import contracts from '@/contracts/hardhat_contracts.json';
-import { NETWORK_ID } from '@/config';
+import contracts from "@/contracts/hardhat_contracts.json"
+import { NETWORK_ID } from "@/config"
 
 /**
  * Call state-changing method on a contract
@@ -16,8 +16,8 @@ export const useContractWrite = (
   args: any,
   overrides: any
 ) => {
-  const chainId = Number(NETWORK_ID);
-  const allContracts = contracts as any;
+  const chainId = Number(NETWORK_ID)
+  const allContracts = contracts as any
   const address = allContracts[chainId][0].contracts[name].address
   const abi = allContracts[chainId][0].contracts[name].abi
 
@@ -26,7 +26,7 @@ export const useContractWrite = (
     contractInterface: abi,
     functionName,
     args,
-    overrides
+    overrides,
   })
 
   return wagmiUseContractWrite(config)

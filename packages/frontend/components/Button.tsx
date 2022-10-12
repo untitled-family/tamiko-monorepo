@@ -1,23 +1,23 @@
-import { Box, Button as ChakraButton } from "@chakra-ui/react";
-import { ReactNode } from "react";
-import { omit } from 'lodash'
-import { transparentize } from "polished";
-import { useElement } from "@/hooks";
+import { Box, Button as ChakraButton } from "@chakra-ui/react"
+import { ReactNode } from "react"
+import { omit } from "lodash"
+import { transparentize } from "polished"
+import { useElement } from "@/hooks"
 
 type Props = {
-  children: ReactNode;
-  isGhost?: boolean;
-  isLoading?: boolean;
-  disabled?: boolean;
-  onClick?: () => void;
-};
+  children: ReactNode
+  isGhost?: boolean
+  isLoading?: boolean
+  disabled?: boolean
+  onClick?: () => void
+}
 
 const corners = [
   { id: 0, top: 0, left: 0 },
   { id: 1, top: 0, right: 0 },
   { id: 2, bottom: 0, left: 0 },
-  { id: 3, bottom: 0, right: 0 }
-];
+  { id: 3, bottom: 0, right: 0 },
+]
 
 export const Button = ({
   children,
@@ -27,30 +27,30 @@ export const Button = ({
   onClick,
   ...rest
 }: Props) => {
-  const disabledBg = isGhost ? 'transparent' : transparentize(0.8, useElement(700));
+  const disabledBg = isGhost ? "transparent" : transparentize(0.8, useElement(700))
   const disabledTextColor = transparentize(0.2, useElement(400))
-  const bgColor = isGhost ? 'transparent' : useElement(700);
-  const textColor = isGhost ? 'black' : useElement(400);
-  const cornerColor = useElement();
+  const bgColor = isGhost ? "transparent" : useElement(700)
+  const textColor = isGhost ? "black" : useElement(400)
+  const cornerColor = useElement()
 
   return (
     <ChakraButton
       disabled={disabled}
-      as='button'
+      as="button"
       bg={disabled ? disabledBg : bgColor}
       textColor={disabled ? disabledTextColor : textColor}
-      position='relative'
+      position="relative"
       p={4}
-      fontSize='lg'
-      textTransform='uppercase'
-      w='full'
+      fontSize="lg"
+      textTransform="uppercase"
+      w="full"
       onClick={onClick}
-      cursor={disabled ? 'not-allowed' : 'pointer'}
+      cursor={disabled ? "not-allowed" : "pointer"}
       isLoading={isLoading}
-      height='auto'
+      height="auto"
       _hover={{
         bg: disabled ? disabledBg : bgColor,
-        textColor: disabled ? disabledTextColor : textColor
+        textColor: disabled ? disabledTextColor : textColor,
       }}
       {...rest}
     >
@@ -58,17 +58,17 @@ export const Button = ({
         corners.map((corner) => (
           <Box
             key={corner.id}
-            as='span'
-            w='full'
-            h='full'
-            position='absolute'
+            as="span"
+            w="full"
+            h="full"
+            position="absolute"
             bg={cornerColor}
-            width='4px'
-            height='4px'
-            {...omit(corner, ['id'])}
+            width="4px"
+            height="4px"
+            {...omit(corner, ["id"])}
           />
         ))}
       {children}
     </ChakraButton>
-  );
-};
+  )
+}

@@ -1,18 +1,18 @@
-import { useContract } from "@/hooks";
-import { Item } from "@/hooks/useTamikoStoreItems";
+import { useContract } from "@/hooks"
+import { TamikoStoreItem as TamikoStoreItemType } from "@/types/metadata"
 import { Box, Flex, Text } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
-import { useAccount, useProvider } from "wagmi";
-import { BuyTamikoItem } from "./BuyTamikoItem";
+import { useAccount, useProvider } from "wagmi"
+import { BuyTamikoItem } from "./BuyTamikoItem"
 
 type Props = {
-  item: Item;
+  item: TamikoStoreItemType
 }
 
 export const TamikoStoreItem = ({ item }: Props) => {
   const { address } = useAccount()
   const provider = useProvider()
-  const contract = useContract('TamikoStore', provider)
+  const contract = useContract("TamikoStore", provider)
   const [balance, setBalance] = useState<number>(0)
 
   const fetchBalance = async () => {
@@ -28,7 +28,7 @@ export const TamikoStoreItem = ({ item }: Props) => {
 
   return (
     <>
-      <Flex border='1px solid' p={4} justifyContent='space-between'>
+      <Flex border="1px solid" p={4} justifyContent="space-between">
         <Text>Name: {item.name}</Text>
         <Text>Price: {item.price}</Text>
         <Text>Owned: {balance}</Text>

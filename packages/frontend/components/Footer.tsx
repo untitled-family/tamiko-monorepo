@@ -1,10 +1,14 @@
-import { Box } from "@chakra-ui/react";
-import { ReactNode } from "react";
+import { Box } from "@chakra-ui/react"
+import { ReactNode } from "react"
 
 type Props = {
-  children: ReactNode;
-};
+  children: ReactNode
+}
 
 export const Footer = ({ children }: Props) => {
-  return <Box as='footer' pb={2}>{children}</Box>;
-};
+  return (
+    <Box as="footer" pb={2}>
+      {children}
+    </Box>
+  )
+}

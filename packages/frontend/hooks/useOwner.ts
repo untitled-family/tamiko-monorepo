@@ -1,23 +1,19 @@
-import { toastError } from "@/utils/error";
-import { useEffect, useState } from "react";
-import { useProvider } from "wagmi";
-import { useContract } from "./useContract";
-
-type Owner = {
-  owner: string;
-  isLoading: boolean;
-}
+import { OwnerHook } from "@/types/hooks"
+import { toastError } from "@/utils/error"
+import { useEffect, useState } from "react"
+import { useProvider } from "wagmi"
+import { useContract } from "./useContract"
 
 /**
  * Fetch owner address of a specific tokenId
- * @param tokenId Tamiko's tokenID 
+ * @param tokenId Tamiko's tokenID
  * @returns Object containing the owner address and loading status
  */
-export const useOwner = (tokenId: number): Owner => {
+export const useOwner = (tokenId: number): OwnerHook => {
   const provider = useProvider()
-  const [owner, setOwner] = useState<string>('')
+  const [owner, setOwner] = useState<string>("")
   const [isLoading, setLoading] = useState<boolean>(false)
-  const tamikoContract = useContract('Tamiko', provider)
+  const tamikoContract = useContract("Tamiko", provider)
 
   const getOwner = async () => {
     setLoading(true)
@@ -39,6 +35,6 @@ export const useOwner = (tokenId: number): Owner => {
 
   return {
     owner,
-    isLoading
+    isLoading,
   }
-};
+}

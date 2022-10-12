@@ -1,1 +1,1 @@
-export { withSkeleton } from './withSkeleton';
+export { withSkeleton } from "./withSkeleton"

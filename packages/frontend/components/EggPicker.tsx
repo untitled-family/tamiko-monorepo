@@ -1,12 +1,12 @@
-import { Box, SimpleGrid } from "@chakra-ui/react";
-import { useState } from "react";
-import Egg from "./svg/EggSelectable";
+import { Box, SimpleGrid } from "@chakra-ui/react"
+import { useState } from "react"
+import Egg from "./svg/EggSelectable"
 
 const eggs = [0, 1, 2]
 
 type Props = {
-  onSelect: (index: number) => void;
-};
+  onSelect: (index: number) => void
+}
 
 export default function EggPicker({ onSelect }: Props) {
   const [selected, setSelected] = useState<number | null>(null)
@@ -17,8 +17,8 @@ export default function EggPicker({ onSelect }: Props) {
   }
 
   return (
-    <SimpleGrid mx='auto' w='80%' columns={3}>
-      {eggs.map(egg => (
+    <SimpleGrid mx="auto" w="80%" columns={3}>
+      {eggs.map((egg) => (
         <Box key={egg} onClick={() => select(egg)}>
           <Egg isActive={egg === selected} />
         </Box>

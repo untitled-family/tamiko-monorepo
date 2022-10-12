@@ -1,29 +1,27 @@
-import Head from 'next/head';
+import Head from "next/head"
 
-import { Main } from '@/components/Main';
-import { Button } from '@/components/Button';
-import { Footer } from '@/components/Footer';
+import { Main } from "@/components/Main"
+import { Button } from "@/components/Button"
+import { Footer } from "@/components/Footer"
 
-import {
-  useConnectModal,
-} from '@rainbow-me/rainbowkit';
-import { useAccount } from 'wagmi';
-import Link from 'next/link';
-import Idle from '@/components/svg/Idle';
-import { Text } from '@chakra-ui/react';
-import Connected from '@/components/svg/Connected';
-import { useEffect } from 'react';
-import { useElementTheme, useRandomElement } from '@/hooks';
+import { useConnectModal } from "@rainbow-me/rainbowkit"
+import { useAccount } from "wagmi"
+import Link from "next/link"
+import Idle from "@/components/svg/Idle"
+import { Text } from "@chakra-ui/react"
+import Connected from "@/components/svg/Connected"
+import { useEffect } from "react"
+import { useElementTheme, useRandomElement } from "@/hooks"
 
 export default function Home() {
   const [color] = useElementTheme()
   const setRandomColor = useRandomElement()
-  const { openConnectModal } = useConnectModal();
+  const { openConnectModal } = useConnectModal()
   const { address } = useAccount()
 
   useEffect(() => {
-    if (address && color === 'neutral') {
-      setRandomColor(['neutral'])
+    if (address && color === "neutral") {
+      setRandomColor(["neutral"])
     }
   }, [address])
 
@@ -50,9 +48,10 @@ export default function Home() {
       <Footer>
         {address && (
           <>
-            <Link href='/mint'>
-              <Button>Mint</Button></Link>
-            <Link href='/app'>
+            <Link href="/mint">
+              <Button>Mint</Button>
+            </Link>
+            <Link href="/app">
               <Button isGhost>App</Button>
             </Link>
           </>
@@ -62,10 +61,8 @@ export default function Home() {
             <Button onClick={openConnectModal}>connect wallet</Button>
             <Button isGhost>wtf is tamiko?</Button>
           </>
-
         )}
-
       </Footer>
     </>
-  );
+  )
 }

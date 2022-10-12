@@ -1,8 +1,8 @@
-import { useContract as wagmiUseContract } from 'wagmi';
+import { useContract as wagmiUseContract } from "wagmi"
 
-import contracts from '@/contracts/hardhat_contracts.json';
-import { NETWORK_ID } from '@/config';
-import { Contract, Signer, providers } from 'ethers';
+import contracts from "@/contracts/hardhat_contracts.json"
+import { NETWORK_ID } from "@/config"
+import { Contract, Signer, providers } from "ethers"
 
 /**
  * Get Contract class from a name
@@ -10,9 +10,12 @@ import { Contract, Signer, providers } from 'ethers';
  * @param signer Signer or Provider used to read/write
  * @returns the Contract
  */
-export const useContract = (name: string, signer: Signer | providers.Provider | null | undefined): Contract => {
-  const chainId = Number(NETWORK_ID);
-  const allContracts = contracts as any;
+export const useContract = (
+  name: string,
+  signer: Signer | providers.Provider | null | undefined
+): Contract => {
+  const chainId = Number(NETWORK_ID)
+  const allContracts = contracts as any
   const address = allContracts[chainId][0].contracts[name].address
   const abi = allContracts[chainId][0].contracts[name].abi
 
@@ -20,7 +23,7 @@ export const useContract = (name: string, signer: Signer | providers.Provider | 
     addressOrName: address,
     contractInterface: abi,
     signerOrProvider: signer,
-  });
+  })
 
   return contract
 }

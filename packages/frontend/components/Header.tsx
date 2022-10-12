@@ -6,6 +6,7 @@ import Link from "next/link"
 import { useEffect } from "react"
 import { useAccount, useEnsName } from "wagmi"
 import { trimAddress } from "../utils/address"
+import { zIndex } from "@/utils/foundation/zIndex"
 
 export const Header = () => {
   const { openConnectModal } = useConnectModal()
@@ -22,7 +23,14 @@ export const Header = () => {
   }, [wagmiSigner])
 
   return (
-    <Flex as="header" alignItems="center" justifyContent="space-between">
+    <Flex
+      as="header"
+      alignItems="center"
+      justifyContent="space-between"
+      position="sticky"
+      top={0}
+      zIndex={zIndex("header")}
+    >
       <h1>
         <Link href="/">Tamiko</Link>
       </h1>

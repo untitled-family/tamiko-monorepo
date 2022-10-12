@@ -27,7 +27,10 @@ export const PhoneWrap = ({ children }: Props) => {
         py={2}
         px={4}
         flexDirection="column"
-        style={{ maxWidth: 375, minHeight: 812 }}
+        maxW={375}
+        maxH={812}
+        h="100vh"
+        overflowY="auto"
       >
         {children}
       </Flex>

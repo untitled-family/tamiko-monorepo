@@ -76,7 +76,6 @@ const App = ({ Component, pageProps }: AppProps) => {
                 <Component {...pageProps} />
                 <Toaster />
               </PhoneWrap>
-              <Switcher />
             </ElementThemeProvider>
           </Provider>
         </ChakraProvider>

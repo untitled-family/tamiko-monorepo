@@ -16,6 +16,12 @@ export interface TamikoProperties {
   lastFed: string
 }
 
+export interface TamikoAbilities {
+  strength: string
+  speed: string
+  defense: string
+}
+
 export interface TamikoStoreItem {
   id: number
   name: string

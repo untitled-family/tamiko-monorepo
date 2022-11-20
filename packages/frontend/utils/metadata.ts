@@ -1,4 +1,9 @@
-import { Attribute, TamikoProperties, TamikoStoreItem } from "@/types/metadata"
+import {
+  Attribute,
+  TamikoAbilities,
+  TamikoProperties,
+  TamikoStoreItem,
+} from "@/types/metadata"
 import { BigNumber } from "ethers"
 
 /**
@@ -24,11 +29,11 @@ export const extractAttributes = (
  * @param properties array of all attributes to convert to object
  * @returns Object of Property
  */
-export const attributesToObject = (properties: Attribute[]): TamikoProperties => {
+export const attributesToObject = (properties: Attribute[]) => {
   const propertiesObject = properties.reduce(
     (obj, item) => Object.assign(obj, { [item.trait_type]: item.value }),
     {}
-  ) as TamikoProperties
+  )
 
   return propertiesObject
 }

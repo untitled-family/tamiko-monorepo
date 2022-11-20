@@ -7,6 +7,7 @@ import {
   TamikoName,
 } from "@/components/contract"
 import { useElementTheme, useTamikoMetadata } from "@/hooks"
+import { useTamikoProvider } from "@/hooks/useTamikoProvider"
 import { AspectRatio, Box, Image, Text } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 import { useEffect } from "react"
@@ -16,11 +17,11 @@ const Tamiko = () => {
   const { id } = router.query
   const [, setColor] = useElementTheme()
   const intId = parseInt(id as string, 10)
-  const { properties, abilities, metadata, isLoading, refresh } = useTamikoMetadata(intId)
+  const { metadata, abilities, properties, isLoading, refresh } = useTamikoMetadata(intId)
   const hasHatched = parseInt(properties?.hatchStatus as string) >= 2
-
-  console.log("intId", intId)
-  console.log("isLoading", isLoading)
+  const { getTamikoById } = useTamikoProvider()
+  const contextTamiko = getTamikoById(intId)
+  const tamiko = contextTamiko ? contextTamiko : { metadata, abilities, properties }
 
   useEffect(() => {
     if (!hasHatched) {
@@ -36,7 +37,7 @@ const Tamiko = () => {
         {!isNaN(intId) && (
           <>
             <AspectRatio ratio={1}>
-              <Image w="full" src={metadata?.image} alt={metadata?.name} />
+              <Image w="full" src={tamiko.metadata?.image} alt={tamiko.metadata?.name} />
             </AspectRatio>
           </>
         )}
@@ -51,7 +52,7 @@ const Tamiko = () => {
         />
 
         <TamikoInfo
-          properties={properties}
+          properties={tamiko.properties}
           tokenId={intId}
           isLoading={isLoading}
           w="full"
@@ -59,14 +60,17 @@ const Tamiko = () => {
           h="29px"
         />
 
-        <TamikoOwners isLoading={isLoading} metadata={metadata} tokenId={intId} />
+        <TamikoOwners isLoading={isLoading} metadata={tamiko.metadata} tokenId={intId} />
 
         {!isNaN(intId) && !isLoading && (
           <>
-            {/* <TamikoOwners metadata={metadata} tokenId={intId} /> */}
-            {hasHatched && <TamikoStrength abilities={abilities} />}
+            {hasHatched && <TamikoStrength abilities={tamiko.abilities} />}
             {!hasHatched && (
-              <TamikoHatch properties={properties} tokenId={intId} onHatch={refresh} />
+              <TamikoHatch
+                properties={tamiko.properties}
+                tokenId={intId}
+                onHatch={refresh}
+              />
             )}
           </>
         )}

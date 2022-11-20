@@ -1,10 +1,16 @@
 import { TamikoMetadataHook } from "@/types/hooks"
-import { Attribute, TamikoMetadata, TamikoProperties } from "@/types/metadata"
+import {
+  Attribute,
+  TamikoAbilities,
+  TamikoMetadata,
+  TamikoProperties,
+} from "@/types/metadata"
 import { toastError } from "@/utils/error"
 import { attributesToObject, extractAttributes } from "@/utils/metadata"
 import { useEffect, useState } from "react"
 import { useProvider } from "wagmi"
 import { useContract } from "./useContract"
+import { useTamikoProvider } from "./useTamikoProvider"
 
 /**
  * Fetch metadata of a specific Tamiko
@@ -14,11 +20,10 @@ import { useContract } from "./useContract"
  */
 export const useTamikoMetadata = (tokenId: number): TamikoMetadataHook => {
   const provider = useProvider()
-  const [metadata, setMetadata] = useState<TamikoMetadata | null>(null)
-  const [abilities, setAbilities] = useState<Attribute[] | []>([])
-  const [properties, setProperties] = useState<TamikoProperties | null>(null)
   const [isLoading, setLoading] = useState<boolean>(false)
   const tamikoContract = useContract("Tamiko", provider)
+  const { updateTamiko, getTamikoById } = useTamikoProvider()
+  const tamiko = getTamikoById(tokenId)
 
   const getMetadata = async () => {
     setLoading(true)
@@ -35,9 +40,17 @@ export const useTamikoMetadata = (tokenId: number): TamikoMetadataHook => {
         "defense",
       ])
 
-      setMetadata(json)
-      setAbilities(abilities)
-      setProperties(attributesToObject(json.properties))
+      updateTamiko({
+        id: tokenId,
+        metadata: {
+          image: json.image,
+          name: json.name,
+          attributes: json.attributes,
+        },
+        properties: attributesToObject(json.properties) as TamikoProperties,
+        abilities: attributesToObject(abilities) as TamikoAbilities,
+      })
+
       setLoading(false)
     } catch (e) {
       toastError(e)
@@ -56,9 +69,9 @@ export const useTamikoMetadata = (tokenId: number): TamikoMetadataHook => {
   }, [tokenId])
 
   return {
-    metadata,
-    abilities,
-    properties,
+    metadata: tamiko ? tamiko.metadata : null,
+    abilities: tamiko ? tamiko.abilities : null,
+    properties: tamiko ? tamiko.properties : null,
     refresh: getMetadata,
     isLoading,
   }
